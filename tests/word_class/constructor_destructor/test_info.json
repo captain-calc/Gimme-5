@@ -1,0 +1,13 @@
+{
+  "targets": [
+    "Word::Word()",
+    "Word::Word(char const*)",
+    "Word::~Word()"
+  ],
+  "used": [
+    "Word::Word(char const*)",
+    "Word::Word()",
+    "Word::~Word()"
+  ],
+  "dependencies": []
+}

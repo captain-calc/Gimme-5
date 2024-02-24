@@ -1,0 +1,14 @@
+{
+  "targets": [
+    "Word::generate_letter_signature(char*) const"
+  ],
+  "used": [
+    "Word::Word(char const*)",
+    "Word::generate_letter_signature(char*) const",
+    "Word::~Word()"
+  ],
+  "dependencies": [
+    "Word::Word(char const*)",
+    "Word::~Word()"
+  ]
+}

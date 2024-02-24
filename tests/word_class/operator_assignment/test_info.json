@@ -1,0 +1,15 @@
+{
+  "targets": [
+    "Word::operator=(char const*)"
+  ],
+  "used": [
+    "Word::Word(char const*)",
+    "Word::operator==(Word const&) const",
+    "Word::~Word()"
+  ],
+  "dependencies": [
+    "Word::Word(char const*)",
+    "Word::operator==(Word const&) const",
+    "Word::~Word()"
+  ]
+}

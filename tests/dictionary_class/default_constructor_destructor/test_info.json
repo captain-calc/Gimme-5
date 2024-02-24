@@ -1,0 +1,13 @@
+{
+  "targets": [
+    "Dictionary::Dictionary()",
+    "Dictionary::is_loaded() const",
+    "Dictionary::~Dictionary()"
+  ],
+  "used": [
+    "Dictionary::Dictionary()",
+    "Dictionary::is_loaded() const",
+    "Dictionary::~Dictionary()"
+  ],
+  "dependencies": []
+}

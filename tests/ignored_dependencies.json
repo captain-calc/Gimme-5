@@ -1,0 +1,17 @@
+[
+  "___assert_fail_loc",
+  "__idivs",
+  "__frameset",
+  "__frameset0",
+  "__imulu",
+  "__setflag",
+  "_gfx_Begin",
+  "_gfx_End",
+  "_gfx_PrintUInt",
+  "_ti_Close",
+  "_ti_Open",
+  "_ti_Read",
+  "_strncmp",
+  "testutil_PrintTestResults(bool)",
+  "testutil_PrintTestSetup()"
+]

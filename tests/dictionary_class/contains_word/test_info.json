@@ -1,0 +1,22 @@
+{
+  "targets": [
+    "Dictionary::contains_word(Word const&) const"
+  ],
+  "used": [
+    "Dictionary::Dictionary()",
+    "Word::Word(char const*)",
+    "Dictionary::contains_word(Word const&) const",
+    "Word::~Word()",
+    "Dictionary::~Dictionary()"
+  ],
+  "dependencies": [
+    "Word::~Word()",
+    "Word::operator>(Word const&) const",
+    "Word::operator=(char const*)",
+    "Word::Word()",
+    "Word::operator<(Word const&) const",
+    "Word::Word(char const*)",
+    "Dictionary::Dictionary()",
+    "Dictionary::~Dictionary()"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "targets": [
+    "Word::is_anagram_of_word(Word const&) const"
+  ],
+  "used": [
+    "Word::Word(char const*)",
+    "Word::is_anagram_of_word(Word const&) const",
+    "Word::~Word()"
+  ],
+  "dependencies": [
+    "Word::generate_letter_signature(char*) const",
+    "Word::Word(char const*)",
+    "Word::~Word()"
+  ]
+}
