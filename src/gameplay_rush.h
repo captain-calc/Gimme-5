@@ -12,6 +12,8 @@ class Timer
 
     void update();
     void reload();
+    void freeze_updates();
+    void thaw_updates();
 
     bool is_expired() const;
     void draw() const;
@@ -26,6 +28,7 @@ class Timer
 
     clock_t start_timestamp;
     uint8_t num_seconds_left;
+    bool frozen;
 };
 
 
@@ -54,6 +57,7 @@ class RushGameplay : public Gameplay
     void draw_lose_animation() const;
     bool is_last_guess_correct() const;
     bool are_all_guesses_used() const;
+    bool last_guess_had_four_correctly_positioned_letters() const;
     void show_help_screen() const;
 
     void reset_guesses();

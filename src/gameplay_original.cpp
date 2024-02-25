@@ -427,7 +427,7 @@ void OriginalGameplay::play(IN Word& target_word)
   reset_guesses();
   target = target_word;
 
-  if (InGameHelp::must_show_help_for(InGameHelp::GAME))
+  if (InGameHelp::must_show_help_for(InGameHelp::ORIGINAL_GAMEPLAY))
     show_help_screen();
 
   while (true)

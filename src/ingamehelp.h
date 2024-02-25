@@ -15,7 +15,8 @@ class InGameHelp
     {
       MAIN_MENU            = (1 << 0),
       WORD_CODE_ENTRY_MENU = (1 << 1),
-      GAME                 = (1 << 2)
+      ORIGINAL_GAMEPLAY    = (1 << 2),
+      RUSH_GAMEPLAY        = (1 << 3)
     };
 
     static bool must_show_help_for(IN HELP_FLAG help_flag);

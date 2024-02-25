@@ -21,6 +21,7 @@
 
 Timer::Timer()
 {
+  this->frozen = false;
   reload();
   return;
 }
@@ -29,6 +30,9 @@ Timer::Timer()
 void Timer::update()
 {
   clock_t timestamp = clock();
+
+  if (this->frozen)
+    return;
 
   if ((timestamp - this->start_timestamp) > CLOCKS_PER_SEC)
   {
@@ -46,6 +50,20 @@ void Timer::reload()
 {
   this->start_timestamp = clock();
   this->num_seconds_left = RELOAD_VALUE;
+  return;
+}
+
+
+void Timer::freeze_updates()
+{
+  this->frozen = true;
+  return;
+}
+
+
+void Timer::thaw_updates()
+{
+  this->frozen = false;
   return;
 }
 
@@ -107,8 +125,7 @@ void RushGameplay::play_random_word()
   reset_guesses();
   dictionary.get_random_word(target);
 
-  // TODO: Add help for RushGameplay and update in-game help flags.
-  if (InGameHelp::must_show_help_for(InGameHelp::GAME))
+  if (InGameHelp::must_show_help_for(InGameHelp::RUSH_GAMEPLAY))
     show_help_screen();
 
   while (true)
@@ -161,6 +178,11 @@ void RushGameplay::play_random_word()
         full_redraw = true;
       }
     }
+
+    if (last_guess_had_four_correctly_positioned_letters())
+      this->timer.freeze_updates();
+    else
+      this->timer.thaw_updates();
 
     this->timer.update();
 
@@ -348,9 +370,136 @@ bool RushGameplay::are_all_guesses_used() const
 }
 
 
+bool RushGameplay::last_guess_had_four_correctly_positioned_letters() const
+{
+  word_evaluation_t last_guess_evaluation;
+  uint8_t count = 0;
+
+  memcpy(
+    last_guess_evaluation,
+    this->guess_evaluations[(this->num_guesses ? this->num_guesses - 1: 0)],
+    sizeof(word_evaluation_t)
+  );
+
+  for (uint8_t index = 0; index < WORD_LENGTH; index++)
+  {
+    if (last_guess_evaluation[index] == POSITION_AND_LETTER_CORRECT)
+      count++;
+  }
+
+  return (count >= 4);
+}
+
+
 void RushGameplay::show_help_screen() const
 {
-  // TODO
+  const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 9;
+  const char* FIRST_PAGE_STRINGS[NUM_STRINGS_ON_FIRST_PAGE] = {
+    "Gameplay:",
+    "",
+    "The object of the game is to guess a",
+    "five-letter English word by entering other",
+    "five-letter English words.",
+    "",
+    "The letters of each entered guess are",
+    "then colored to indicate if that letter",
+    "appears in the target word."
+  };
+  const uint8_t NUM_STRINGS_ON_SECOND_PAGE = 9;
+  const char* SECOND_PAGE_STRINGS[NUM_STRINGS_ON_SECOND_PAGE] = {
+    "Colors:",
+    "  BLUE:        Letter is not in the target word.",
+    "  ORANGE:   Letter is in the target word but",
+    "                      in a different position.",
+    "  GREEN:      Letter is in the target word in",
+    "                      that position.",
+    "",
+    "In short, the rules of Original apply to Rush,",
+    "but with one twist."
+  };
+  const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 13;
+  const char* THIRD_PAGE_STRINGS[NUM_STRINGS_ON_THIRD_PAGE] = {
+    "The Rush:",
+    "",
+    "Every 30 seconds, the game will change the",
+    "target word. However, if your last guess had",
+    "one or more GREEN letters in it, the game will",
+    "pick a word with those letters and in those",
+    "positions.",
+    "",
+    "BEWARE! If you leave out a GREEN letter, the",
+    "target word no longer has to have that letter",
+    "in it.",
+    "",
+    "(continued on next page)"
+  };
+  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 11;
+  const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
+    "When you get four GREEN letters, the timer",
+    "will stop.",
+    "",
+    "Controls:",
+    "  [2nd]/[enter]  . . . . . . Enter guess",
+    "  [del]  . . . . . . . . . . . . . . . . Delete last letter",
+    "  [clear] . . . . . . . . . . . . . . Pause game",
+    "",
+    "Use the the buttons associated with the",
+    "green A-Z letters to enter a five-letter",
+    "word.",
+  };
+  const uint8_t NUM_PAGES = 4;
+
+  bool transition_in = true;
+  uint8_t page_num = 1;
+
+  while (true)
+  {
+    Keypad::update_state();
+
+    if (Keypad::is_down_repeating(kb_KeyLeft) && page_num > 1)
+      page_num--;
+
+    if (Keypad::is_down_repeating(kb_KeyRight) && page_num < NUM_PAGES)
+      page_num++;
+
+    if (Keypad::was_released_exclusive(kb_KeyClear))
+      break;
+
+    switch (page_num)
+    {
+      case 1:
+        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE, 67);
+        break;
+
+      case 2:
+        gui_DrawHelpScreen(
+          SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE, 67
+        );
+        break;
+
+      case 3:
+        gui_DrawHelpScreen(THIRD_PAGE_STRINGS, NUM_STRINGS_ON_THIRD_PAGE, 67);
+        break;
+
+      case 4:
+        gui_DrawHelpScreen(FOURTH_PAGE_STRINGS, NUM_STRINGS_ON_FOURTH_PAGE, 67);
+        break;
+    };
+
+    gui_DrawPageNumberIndicator(NUM_PAGES, page_num);
+
+    if (transition_in)
+    {
+      gui_TransitionIn();
+      transition_in = false;
+    }
+    else
+    {
+      gfx_BlitBuffer();
+    }
+  }
+
+  gui_TransitionOut();
   return;
 }
 
