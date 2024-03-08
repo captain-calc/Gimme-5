@@ -433,10 +433,11 @@ void RushGameplay::show_help_screen() const
     "",
     "(continued on next page)"
   };
-  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 11;
+  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 12;
   const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
     "When you get four GREEN letters, the timer",
-    "will stop.",
+    "will stop. If you fail to guess the word",
+    "in 40 tries, the game will end.",
     "",
     "Controls:",
     "  [2nd]/[enter]  . . . . . . Enter guess",
