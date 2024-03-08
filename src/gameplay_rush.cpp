@@ -281,14 +281,14 @@ void RushGameplay::draw_guesses() const
     .ypos = 15
   };
 
-  text.set_xpos(83);
   draw_game_screen_background();
 
   for (uint8_t index = STARTING_INDEX; index < UPPER_LIMIT; index++)
   {
     if (index < this->num_guesses)
     {
-      text.set_font(GuiText::DEFAULT);
+      text.set_font(GuiText::NORMAL_SIZE_WITH_SHADOW);
+      text.set_xpos(83);
       text.set_ypos(origin.ypos + 7);
       text.draw_unsigned_int(index + 1);
     }
