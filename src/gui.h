@@ -65,9 +65,6 @@ class GuiText
     void set_ypos(IN uint8_t ypos);
 
   private:
-    uint24_t xpos;
-    uint8_t ypos;
-
     uint8_t background_color;
     uint8_t foreground_color;
     uint8_t transparent_color;

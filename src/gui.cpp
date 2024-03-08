@@ -46,10 +46,8 @@ static void draw_button(IN button_attributes_t& attributes);
 
 GuiText::GuiText()
 {
-  xpos = 0;
-  ypos = 0;
-  background_color = TRANSPARENT;
-  transparent_color = TRANSPARENT;
+  this->background_color = TRANSPARENT;
+  this->transparent_color = TRANSPARENT;
 
   set_font(DEFAULT);
   return;
@@ -64,22 +62,14 @@ uint8_t GuiText::get_font_height() const
 
 void GuiText::draw_string(IN char* string)
 {
-  uint24_t shadow_xpos = xpos + z_index;
-  uint8_t shadow_ypos = ypos + z_index;
+  const char* character = string;
 
-  // Even if the text has no shadow, this will still verify that the string
-  // fits onscreen.
-  assert(shadow_xpos + gfx_GetStringWidth(string) < LCD_WIDTH);
-  assert(shadow_ypos + get_font_height() < LCD_HEIGHT);
-
-  if (z_index > 0)
+  while (*character != '\0')
   {
-    gfx_SetTextFGColor(BLACK);
-    gfx_PrintStringXY(string, shadow_xpos, shadow_ypos);
+    draw_character(*character);
+    character++;
   }
 
-  gfx_SetTextFGColor(foreground_color);
-  gfx_PrintStringXY(string, xpos, ypos);
   return;
 }
 
@@ -89,7 +79,7 @@ void GuiText::draw_centered_string(IN char* string)
   // The font scale must be set before the string's width is calculated.
   // gfx_SetTextScale(this->horizontal_scale, this->vertical_scale);
 
-  xpos = (LCD_WIDTH - gfx_GetStringWidth(string)) / 2;
+  set_xpos((LCD_WIDTH - gfx_GetStringWidth(string)) / 2);
   draw_string(string);
   return;
 }
@@ -97,17 +87,49 @@ void GuiText::draw_centered_string(IN char* string)
 
 void GuiText::draw_character(IN char character)
 {
-  char buffer[2] = { '\0' };
+  const uint24_t XPOS = gfx_GetTextX();
+  const uint8_t YPOS = gfx_GetTextY();
 
-  buffer[0] = character;
-  draw_string(buffer);
+  uint24_t shadow_xpos = XPOS + z_index;
+  uint8_t shadow_ypos = YPOS + z_index;
+
+  assert(shadow_xpos + gfx_GetCharWidth(character) < LCD_WIDTH);
+  assert(shadow_ypos + get_font_height() < LCD_HEIGHT);
+
+  if (z_index > 0)
+  {
+    gfx_SetTextFGColor(BLACK);
+    gfx_SetTextXY(shadow_xpos, shadow_ypos);
+    gfx_PrintChar(character);
+  }
+
+  gfx_SetTextXY(XPOS, YPOS);
+  gfx_SetTextFGColor(this->foreground_color);
+  gfx_PrintChar(character);
   return;
 }
 
 
 void GuiText::draw_unsigned_int(IN unsigned int integer)
 {
-  gfx_SetTextXY(xpos, ypos);
+  const uint24_t XPOS = gfx_GetTextX();
+  const uint8_t YPOS = gfx_GetTextY();
+
+  uint24_t shadow_xpos = XPOS + z_index;
+  uint8_t shadow_ypos = YPOS + z_index;
+
+  assert(shadow_xpos + gfx_GetCharWidth(character) < LCD_WIDTH);
+  assert(shadow_ypos + get_font_height() < LCD_HEIGHT);
+
+  if (z_index > 0)
+  {
+    gfx_SetTextFGColor(BLACK);
+    gfx_SetTextXY(shadow_xpos, shadow_ypos);
+    gfx_PrintUInt(integer, log10(integer));
+  }
+
+  gfx_SetTextXY(XPOS, YPOS);
+  gfx_SetTextFGColor(this->foreground_color);
   gfx_PrintUInt(integer, log10(integer));
   return;
 }
@@ -118,73 +140,73 @@ void GuiText::set_font(IN font_style_t font_style)
   switch (font_style)
   {
     case NORMAL_SIZE_WITH_SHADOW:
-      foreground_color = WHITE;
-      z_index = 1;
-      horizontal_scale = 1;
-      vertical_scale = 1;
+      this->foreground_color = WHITE;
+      this->z_index = 1;
+      this->horizontal_scale = 1;
+      this->vertical_scale = 1;
       break;
 
     case DOUBLE_SIZE_WITH_SHADOW:
-      foreground_color = WHITE;
-      z_index = 2;
-      horizontal_scale = 2;
-      vertical_scale = 2;
+      this->foreground_color = WHITE;
+      this->z_index = 2;
+      this->horizontal_scale = 2;
+      this->vertical_scale = 2;
       break;
 
     case MENU_TITLE:
-      foreground_color = WHITE;
-      z_index = 2;
-      horizontal_scale = 2;
-      vertical_scale = 3;
+      this->foreground_color = WHITE;
+      this->z_index = 2;
+      this->horizontal_scale = 2;
+      this->vertical_scale = 3;
       break;
 
     case TILE_CHARACTER:
-      foreground_color = WHITE;
-      z_index = 1;
-      horizontal_scale = 1;
-      vertical_scale = 2;
+      this->foreground_color = WHITE;
+      this->z_index = 1;
+      this->horizontal_scale = 1;
+      this->vertical_scale = 2;
       break;
 
     case GAME_COMPLETION:
-      foreground_color = WHITE;
-      z_index = 2;
-      horizontal_scale = 3;
-      vertical_scale = 2;
+      this->foreground_color = WHITE;
+      this->z_index = 2;
+      this->horizontal_scale = 3;
+      this->vertical_scale = 2;
       break;
 
     case GAMEPLAY_OPTION_TITLE:
-      foreground_color = WHITE;
-      z_index = 2;
-      horizontal_scale = 1;
-      vertical_scale = 2;
+      this->foreground_color = WHITE;
+      this->z_index = 2;
+      this->horizontal_scale = 1;
+      this->vertical_scale = 2;
       break;
 
     case DEFAULT:
     default:
-      foreground_color = WHITE;
-      z_index = 0;
-      horizontal_scale = 1;
-      vertical_scale = 1;
+      this->foreground_color = WHITE;
+      this->z_index = 0;
+      this->horizontal_scale = 1;
+      this->vertical_scale = 1;
       break;
   }
 
-  gfx_SetTextBGColor(background_color);
-  gfx_SetTextTransparentColor(transparent_color);
-  gfx_SetTextScale(horizontal_scale, vertical_scale);
+  gfx_SetTextBGColor(this->background_color);
+  gfx_SetTextTransparentColor(this->transparent_color);
+  gfx_SetTextScale(this->horizontal_scale, this->vertical_scale);
   return;
 }
 
 
 void GuiText::set_xpos(IN uint24_t xpos)
 {
-  this->xpos = xpos;
+  gfx_SetTextXY(xpos, gfx_GetTextY());
   return;
 }
 
 
 void GuiText::set_ypos(IN uint8_t ypos)
 {
-  this->ypos = ypos;
+  gfx_SetTextXY(gfx_GetTextX(), ypos);
   return;
 }
 
@@ -574,10 +596,10 @@ void gui_DrawHelpScreen(
   gui_DrawCheckeredBackground();
   gui_DrawMenuTitle("Help");
   text.set_font(GuiText::NORMAL_SIZE_WITH_SHADOW);
-  text.set_xpos(5);
 
   for (uint8_t index = 0; index < num_strings; index++)
   {
+    text.set_xpos(5);
     text.set_ypos(text_ypos);
     text.draw_string(strings[index]);
     text_ypos += LINE_HEIGHT;
