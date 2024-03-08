@@ -179,10 +179,17 @@ void RushGameplay::play_random_word()
       }
     }
 
-    if (last_guess_had_four_correctly_positioned_letters())
+    if (
+      last_guess_had_four_correctly_positioned_letters()
+      || this->num_guesses == 0
+    )
+    {
       this->timer.freeze_updates();
+    }
     else
+    {
       this->timer.thaw_updates();
+    }
 
     this->timer.update();
 
@@ -548,7 +555,27 @@ void RushGameplay::add_guess(IN word_string_t guess)
 
 void RushGameplay::swap_target_word()
 {
-  WordPattern pattern(target, guess_evaluations[num_guesses - 1]);
+  assert(this->num_guesses > 0);
+
+  WordPattern pattern;
+  word_string_t pattern_string;
+  word_evaluation_t evaluation;
+
+  memcpy(
+    evaluation,
+    this->guess_evaluations[this->num_guesses - 1],
+    WORD_LENGTH
+  );
+
+  target.copy_into_string(pattern_string);
+
+  for (uint8_t index = 0; index < WORD_LENGTH; index++)
+  {
+    if (evaluation[index] != POSITION_AND_LETTER_CORRECT)
+      pattern_string[index] = WordPattern::WILDCARD_CHARACTER;
+  }
+
+  pattern.set_pattern(pattern_string);
 
   if (!pattern.is_all_wildcards())
       dictionary.get_random_word_that_fits_pattern(pattern, target);

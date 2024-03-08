@@ -157,17 +157,40 @@ void Word::generate_letter_signature(OUT word_string_t signature) const
 }
 
 
-WordPattern::WordPattern(IN Word& word, IN word_evaluation_t evaluation)
+WordPattern::WordPattern()
 {
-  word.copy_into_string(pattern);
+  word_string_t default_pattern_string;
+  memset(default_pattern_string, this->WILDCARD_CHARACTER, WORD_LENGTH);
+  set_pattern(default_pattern_string);
+  return;
+}
+
+
+void WordPattern::set_pattern(IN word_string_t pattern_string)
+{
+  memcpy(this->pattern_string, pattern_string, WORD_LENGTH);
+
+  assert(is_valid_pattern());
+  return;
+}
+
+
+bool WordPattern::is_valid_pattern() const
+{
+  char character;
 
   for (uint8_t index = 0; index < WORD_LENGTH; index++)
   {
-    if (evaluation[index] != POSITION_AND_LETTER_CORRECT)
-      pattern[index] = WILDCARD_CHARACTER;
+    character = this->pattern_string[index];
+
+    if (character != this->WILDCARD_CHARACTER)
+    {
+      if (character < 'A' || character > 'Z')
+        return false;
+    }
   }
 
-  return;
+  return true;
 }
 
 
@@ -175,7 +198,7 @@ bool WordPattern::is_all_wildcards() const
 {
   for (uint8_t index = 0; index < WORD_LENGTH; index++)
   {
-    if (pattern[index] != WILDCARD_CHARACTER)
+    if (pattern_string[index] != this->WILDCARD_CHARACTER)
       return false;
   }
 
@@ -186,16 +209,21 @@ bool WordPattern::is_all_wildcards() const
 bool WordPattern::matches_word(IN Word& word) const
 {
   word_string_t string;
-  char letter;
+  char character;
 
   word.copy_into_string(string);
 
   for (uint8_t index = 0; index < WORD_LENGTH; index++)
   {
-    letter = pattern[index];
+    character = pattern_string[index];
 
-    if (letter != WILDCARD_CHARACTER && letter != string[index])
+    if (
+      character != this->WILDCARD_CHARACTER
+      && character != string[index]
+    )
+    {
       return false;
+    }
   }
 
   return true;

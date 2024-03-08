@@ -118,7 +118,7 @@ void GuiText::draw_unsigned_int(IN unsigned int integer)
   uint24_t shadow_xpos = XPOS + z_index;
   uint8_t shadow_ypos = YPOS + z_index;
 
-  assert(shadow_xpos + gfx_GetCharWidth(character) < LCD_WIDTH);
+  // Assertion checking integer with deliberately skipped.
   assert(shadow_ypos + get_font_height() < LCD_HEIGHT);
 
   if (z_index > 0)

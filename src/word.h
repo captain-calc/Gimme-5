@@ -49,15 +49,18 @@ class Word
 class WordPattern
 {
   public:
-    WordPattern(IN Word& word, IN word_evaluation_t evaluation);
+    static const char WILDCARD_CHARACTER = '*';
 
+    WordPattern();
+
+    void set_pattern(IN word_string_t pattern_string);
+
+    bool is_valid_pattern() const;
     bool is_all_wildcards() const;
     bool matches_word(IN Word& word) const;
 
   private:
-    const char WILDCARD_CHARACTER = '*';
-
-    word_string_t pattern;
+    word_string_t pattern_string;
 };
 
 
