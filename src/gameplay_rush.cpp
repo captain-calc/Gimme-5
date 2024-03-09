@@ -124,6 +124,7 @@ void RushGameplay::play_random_word()
   gui_TransitionOut();
   reset_guesses();
   scroll_to_guess_list_start();
+  this->timer.reload();
   dictionary.get_random_word(target);
 
   if (InGameHelp::must_show_help_for(InGameHelp::RUSH_GAMEPLAY))
