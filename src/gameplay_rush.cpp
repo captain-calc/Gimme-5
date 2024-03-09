@@ -192,17 +192,10 @@ void RushGameplay::play_random_word()
       scroll_to_guess_list_end();
     }
 
-    if (
-      last_guess_had_four_correctly_positioned_letters()
-      || this->num_guesses == 0
-    )
-    {
+    if (last_guess_had_four_correctly_positioned_letters())
       this->timer.freeze_updates();
-    }
     else
-    {
       this->timer.thaw_updates();
-    }
 
     this->timer.update();
 
@@ -566,17 +559,22 @@ void RushGameplay::add_guess(IN word_string_t guess)
 
 void RushGameplay::swap_target_word()
 {
-  assert(this->num_guesses > 0);
+  assert(this->num_guesses >= 0);
 
   WordPattern pattern;
   word_string_t pattern_string;
-  word_evaluation_t evaluation;
+  word_evaluation_t evaluation = {
+    UNEVALUATED, UNEVALUATED, UNEVALUATED, UNEVALUATED, UNEVALUATED
+  };
 
-  memcpy(
-    evaluation,
-    this->guess_evaluations[this->num_guesses - 1],
-    WORD_LENGTH
-  );
+  if (this->num_guesses > 0)
+  {
+    memcpy(
+      evaluation,
+      this->guess_evaluations[this->num_guesses - 1],
+      WORD_LENGTH
+    );
+  }
 
   target.copy_into_string(pattern_string);
 
