@@ -49,6 +49,7 @@ class RushGameplay : public Gameplay
     Word guesses[MAX_NUM_GUESSES];
     word_evaluation_t guess_evaluations[MAX_NUM_GUESSES];
     uint8_t num_guesses;
+    uint8_t scroll_index;
 
     void draw_game_screen_background() const;
     void draw_game_screen_foreground(IN word_string_t current_guess) const;
@@ -64,6 +65,10 @@ class RushGameplay : public Gameplay
     void add_guess(IN word_string_t guess);
     void swap_target_word();
     void word_not_in_dictionary_notification();
+    void scroll_to_guess_list_start();
+    void scroll_to_guess_list_end();
+    void scroll_guess_list_up();
+    void scroll_guess_list_down();
 };
 
 

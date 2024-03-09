@@ -123,6 +123,7 @@ void RushGameplay::play_random_word()
 
   gui_TransitionOut();
   reset_guesses();
+  scroll_to_guess_list_start();
   dictionary.get_random_word(target);
 
   if (InGameHelp::must_show_help_for(InGameHelp::RUSH_GAMEPLAY))
@@ -158,6 +159,16 @@ void RushGameplay::play_random_word()
       input[num_letters] = '\0';
       partial_redraw = true;
     }
+    else if (Keypad::was_released_exclusive(kb_KeyUp))
+    {
+      scroll_guess_list_up();
+      partial_redraw = true;
+    }
+    else if (Keypad::was_released_exclusive(kb_KeyDown))
+    {
+      scroll_guess_list_down();
+      partial_redraw = true;
+    }
     else if (
       Keypad::was_released_exclusive(kb_Key2nd)
       || Keypad::was_released_exclusive(kb_KeyEnter)
@@ -177,6 +188,8 @@ void RushGameplay::play_random_word()
         word_not_in_dictionary_notification();
         full_redraw = true;
       }
+
+      scroll_to_guess_list_end();
     }
 
     if (
@@ -277,10 +290,8 @@ void RushGameplay::draw_game_screen_foreground(
 void RushGameplay::draw_guesses() const
 {
   const uint8_t VERTICAL_SPACING = (spr_character_slot->height + 5);
-  const uint8_t STARTING_INDEX = (
-    num_guesses > NUM_VISIBLE_GUESSES ? num_guesses - NUM_VISIBLE_GUESSES : 0
-  );
-  const uint8_t UPPER_LIMIT = STARTING_INDEX + NUM_VISIBLE_GUESSES;
+  const uint8_t START_INDEX = this->scroll_index;
+  const uint8_t UPPER_LIMIT = START_INDEX + NUM_VISIBLE_GUESSES;
 
   GuiText text;
   point_t origin = {
@@ -290,7 +301,7 @@ void RushGameplay::draw_guesses() const
 
   draw_game_screen_background();
 
-  for (uint8_t index = STARTING_INDEX; index < UPPER_LIMIT; index++)
+  for (uint8_t index = START_INDEX; index < UPPER_LIMIT; index++)
   {
     if (index < this->num_guesses)
     {
@@ -609,6 +620,49 @@ void RushGameplay::word_not_in_dictionary_notification()
     this->timer.draw();
     this->timer.blit();
   }
+
+  return;
+}
+
+
+void RushGameplay::scroll_to_guess_list_start()
+{
+  this->scroll_index = 0;
+  return;
+}
+
+
+void RushGameplay::scroll_to_guess_list_end()
+{
+  if (this->num_guesses > NUM_VISIBLE_GUESSES - 1)
+  {
+    if (this->num_guesses < MAX_NUM_GUESSES)
+      this->scroll_index = this->num_guesses - NUM_VISIBLE_GUESSES + 1;
+    else
+      this->scroll_index = MAX_NUM_GUESSES - NUM_VISIBLE_GUESSES;
+  }
+  else
+  {
+    this->scroll_index = 0;
+  }
+
+  return;
+}
+
+
+void RushGameplay::scroll_guess_list_up()
+{
+  if (this->scroll_index > 0)
+    this->scroll_index--;
+
+  return;
+}
+
+
+void RushGameplay::scroll_guess_list_down()
+{
+  if (this->scroll_index + NUM_VISIBLE_GUESSES - 1 < this->num_guesses)
+    scroll_index++;
 
   return;
 }
