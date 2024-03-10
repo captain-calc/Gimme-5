@@ -40,7 +40,7 @@ class RushGameplay : public Gameplay
 
   private:
     static const uint8_t ID = 1;
-    static const uint8_t MAX_NUM_GUESSES = 40;
+    static const uint8_t MAX_NUM_GUESSES = 20;
     const uint8_t NUM_VISIBLE_GUESSES = 7;
 
     Timer timer;

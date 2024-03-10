@@ -460,7 +460,7 @@ void RushGameplay::show_help_screen() const
   };
   const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 11;
   const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
-    "If you fail to guess the word in 40 tries,",
+    "If you fail to guess the word in 20 tries,",
     "the game will end.",
     "",
     "Controls:",
