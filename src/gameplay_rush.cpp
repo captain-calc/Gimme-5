@@ -442,7 +442,7 @@ void RushGameplay::show_help_screen() const
     "In short, the rules of Original apply to Rush,",
     "but with one twist."
   };
-  const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 13;
+  const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 12;
   const char* THIRD_PAGE_STRINGS[NUM_STRINGS_ON_THIRD_PAGE] = {
     "The Rush:",
     "",
@@ -454,15 +454,11 @@ void RushGameplay::show_help_screen() const
     "",
     "BEWARE! If you leave out a GREEN letter, the",
     "target word no longer has to have that letter",
-    "in it.",
-    "",
-    "(continued on next page)"
+    "in it. If you fail to guess the word in 20",
+    "tries, the game will end."
   };
-  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 11;
+  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 8;
   const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
-    "If you fail to guess the word in 20 tries,",
-    "the game will end.",
-    "",
     "Controls:",
     "  [2nd]/[enter]  . . . . . . Enter guess",
     "  [del]  . . . . . . . . . . . . . . . . Delete last letter",

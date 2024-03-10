@@ -208,31 +208,81 @@ static int main_menu()
 
 static void show_main_menu_help()
 {
-  const uint8_t NUM_STRINGS = 10;
-  const char* STRINGS[NUM_STRINGS] = {
-    "Controls:",
+  const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 13;
+  const char* FIRST_PAGE_STRINGS[NUM_STRINGS_ON_FIRST_PAGE] = {
+    "Thank you for downloading Gimme 5: All Stars!",
+    "This help menu will give you a quick tour of",
+    "how to navigate the program.",
+    "",
+    "Help Menu Controls",
+    "  [left]/[right] . . . . . . . . . Flip pages",
+    "  [clear] . . . . . . . . . . . . . . Close help menu",
+    "",
+    "Press [mode] at any time to access a help",
+    "menu. Press [clear] to exit menus and",
+    "games.",
+    "",
+    "Press [right] to go to the next page."
+  };
+  const uint8_t NUM_STRINGS_ON_SECOND_PAGE = 11;
+  const char* SECOND_PAGE_STRINGS[NUM_STRINGS_ON_SECOND_PAGE] = {
+    "Main Menu Controls:",
     "  [up]/[down] . . . . . . . . . Change selected button",
     "  [2nd]/[enter]  . . . . . . Press button",
     "  [clear] . . . . . . . . . . . . . . Exit menu",
     "",
-    "Press [mode] at any time to access a help",
-    "page.",
     "",
     "Author:  Captain Calc",
-    "Version:  Pre-Release Beta"
+    "Version:  Pre-Release Beta",
+    "",
+    "",
+    "Have fun!"
   };
-  GuiText text;
 
-  gui_DrawHelpScreen(STRINGS, NUM_STRINGS, 87);
+  const uint8_t NUM_PAGES = 2;
 
-  text.set_font(GuiText::NORMAL_SIZE_WITH_SHADOW);
-  text.set_ypos(67);
-  text.draw_centered_string("Welcome to Gimme5: All Stars!");
-  text.set_ypos(220);
-  text.draw_centered_string("Have fun!");
+  bool transition_in = true;
+  uint8_t page_num = 1;
 
-  gui_TransitionIn();
-  Keypad::block_until_any_key_released();
+  while (true)
+  {
+    Keypad::update_state();
+
+    if (Keypad::is_down_repeating(kb_KeyLeft) && page_num > 1)
+      page_num--;
+
+    if (Keypad::is_down_repeating(kb_KeyRight) && page_num < NUM_PAGES)
+      page_num++;
+
+    if (Keypad::was_released_exclusive(kb_KeyClear))
+      break;
+
+    switch (page_num)
+    {
+      case 1:
+        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE, 67);
+        break;
+
+      case 2:
+        gui_DrawHelpScreen(
+          SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE, 67
+        );
+        break;
+    };
+
+    gui_DrawPageNumberIndicator(NUM_PAGES, page_num);
+
+    if (transition_in)
+    {
+      gui_TransitionIn();
+      transition_in = false;
+    }
+    else
+    {
+      gfx_BlitBuffer();
+    }
+  }
+
   gui_TransitionOut();
   return;
 }

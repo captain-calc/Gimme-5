@@ -292,7 +292,7 @@ CCDBG_PUTS(word_string_buffer);
 
 void OriginalGameplay::show_help_screen() const
 {
-  const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 13;
+  const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 9;
   const char* FIRST_PAGE_STRINGS[NUM_STRINGS_ON_FIRST_PAGE] = {
     "Gameplay:",
     "",
@@ -302,13 +302,9 @@ void OriginalGameplay::show_help_screen() const
     "",
     "The letters of each entered guess are",
     "then colored to indicate if that letter",
-    "appears in the target word.",
-    "",
-    "",
-    "[right arrow]:   Go to next page.",
-    "[clear]:                 Return to the game."
+    "appears in the target word."
   };
-  const uint8_t NUM_STRINGS_ON_SECOND_PAGE = 13;
+  const uint8_t NUM_STRINGS_ON_SECOND_PAGE = 9;
   const char* SECOND_PAGE_STRINGS[NUM_STRINGS_ON_SECOND_PAGE] = {
     "Colors:",
     "  BLUE:        Letter is not in the target word.",
@@ -318,13 +314,9 @@ void OriginalGameplay::show_help_screen() const
     "                      that position.",
     "",
     "Letters that are not in the target word",
-    "will be removed from the onscreen alphabet.",
-    "",
-    "[left arrow]:      Go to previous page.",
-    "[right arrow]:   Go to next page.",
-    "[clear]:                 Return to the game."
+    "will be removed from the onscreen alphabet."
   };
-  const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 13;
+  const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 8;
   const char* THIRD_PAGE_STRINGS[NUM_STRINGS_ON_THIRD_PAGE] = {
     "Controls:",
     "  [2nd]/[enter]  . . . . . . Enter guess",
@@ -333,12 +325,7 @@ void OriginalGameplay::show_help_screen() const
     "",
     "Use the the buttons associated with the",
     "green A-Z letters to enter a five-letter",
-    "word.",
-    "",
-    "",
-    "",
-    "[left arrow]:      Go to previous page.",
-    "[clear]:                 Return to the game."
+    "word."
   };
   const uint8_t NUM_PAGES = 3;
 
