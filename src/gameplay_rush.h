@@ -69,6 +69,7 @@ class RushGameplay : public Gameplay
     void scroll_to_guess_list_end();
     void scroll_guess_list_up();
     void scroll_guess_list_down();
+    void results_screen(IN word_string_t current_guess);
 };
 
 

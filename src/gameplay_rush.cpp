@@ -230,16 +230,15 @@ void RushGameplay::play_random_word()
     {
       draw_win_animation();
       Keypad::block_until_any_key_released();
-      //draw_results_screen();
-      //Keypad::block_until_any_key_released();
+      results_screen(input);
       break;
     }
     else if (are_all_guesses_used() || (pause_menu_decision & REVEAL))
     {
       draw_lose_animation();
       Keypad::block_until_any_key_released();
-      //draw_results_screen();
-      //Keypad::block_until_any_key_released();
+      target.copy_into_string(input);
+      results_screen(input);
       break;
     }
 
@@ -293,7 +292,8 @@ void RushGameplay::draw_guesses() const
     .ypos = 15
   };
 
-  draw_game_screen_background();
+  gfx_SetColor(BG_COLOR);
+  gfx_FillRectangle_NoClip(33, 0, 254, 200);
 
   for (uint8_t index = START_INDEX; index < UPPER_LIMIT; index++)
   {
@@ -662,6 +662,45 @@ void RushGameplay::scroll_guess_list_down()
 {
   if (this->scroll_index + NUM_VISIBLE_GUESSES - 1 < this->num_guesses)
     scroll_index++;
+
+  return;
+}
+
+
+void RushGameplay::results_screen(IN word_string_t current_guess)
+{
+  bool redraw_foreground = false;
+
+  draw_game_screen_background();
+  draw_game_screen_foreground(current_guess);
+  gfx_BlitBuffer();
+
+  while (true)
+  {
+    Keypad::update_state();
+
+    if (Keypad::is_down_repeating(kb_KeyUp))
+    {
+      scroll_guess_list_up();
+      redraw_foreground = true;
+    }
+    else if (Keypad::is_down_repeating(kb_KeyDown))
+    {
+      scroll_guess_list_down();
+      redraw_foreground = true;
+    }
+    else if (Keypad::was_released_exclusive(kb_KeyClear))
+    {
+      break;
+    }
+
+    if (redraw_foreground)
+    {
+      draw_game_screen_foreground(current_guess);
+      gfx_SwapDraw();
+      redraw_foreground = false;
+    }
+  }
 
   return;
 }
