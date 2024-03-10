@@ -660,8 +660,15 @@ void RushGameplay::scroll_guess_list_up()
 
 void RushGameplay::scroll_guess_list_down()
 {
-  if (this->scroll_index + NUM_VISIBLE_GUESSES - 1 < this->num_guesses)
-    scroll_index++;
+  uint8_t last_visible_guess_index = (
+    this->scroll_index + NUM_VISIBLE_GUESSES - 1
+  );
+
+  if (this->num_guesses == MAX_NUM_GUESSES)
+    last_visible_guess_index++;
+
+  if (last_visible_guess_index < this->num_guesses)
+      scroll_index++;
 
   return;
 }
