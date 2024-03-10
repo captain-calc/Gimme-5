@@ -224,14 +224,12 @@ void RushGameplay::play_random_word()
     if (is_last_guess_correct())
     {
       draw_win_animation();
-      Keypad::block_until_any_key_released();
       results_screen(input);
       break;
     }
     else if (are_all_guesses_used() || (pause_menu_decision & REVEAL))
     {
       draw_lose_animation();
-      Keypad::block_until_any_key_released();
       target.copy_into_string(input);
       results_screen(input);
       break;
