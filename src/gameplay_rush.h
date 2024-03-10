@@ -58,7 +58,7 @@ class RushGameplay : public Gameplay
     void draw_lose_animation() const;
     bool is_last_guess_correct() const;
     bool are_all_guesses_used() const;
-    bool last_guess_had_four_correctly_positioned_letters() const;
+    bool does_word_match_excluded_patterns(IN Word& word) const;
     void show_help_screen() const;
 
     void reset_guesses();

@@ -193,11 +193,6 @@ void RushGameplay::play_random_word()
       scroll_to_guess_list_end();
     }
 
-    if (last_guess_had_four_correctly_positioned_letters())
-      this->timer.freeze_updates();
-    else
-      this->timer.thaw_updates();
-
     this->timer.update();
 
     if (this->timer.is_expired())
@@ -393,24 +388,28 @@ bool RushGameplay::are_all_guesses_used() const
 }
 
 
-bool RushGameplay::last_guess_had_four_correctly_positioned_letters() const
+bool RushGameplay::does_word_match_excluded_patterns(IN Word& word) const
 {
-  word_evaluation_t last_guess_evaluation;
-  uint8_t count = 0;
+  const uint8_t NUM_EXCLUDED_PATTERNS = 5;
+  const word_string_t EXCLUDED_PATTERNS[NUM_EXCLUDED_PATTERNS] = {
+    { 'S', 'L', 'A', '*', 'S' },
+    { '*', 'E', 'A', 'R', 'S' },
+    { '*', 'O', 'U', 'N', 'D' },
+    { '*', 'A', 'N', 'K', 'S' },
+    { '*', 'A', '*', 'E', 'S' }
+  };
 
-  memcpy(
-    last_guess_evaluation,
-    this->guess_evaluations[(this->num_guesses ? this->num_guesses - 1: 0)],
-    sizeof(word_evaluation_t)
-  );
+  WordPattern excluded_pattern;
 
-  for (uint8_t index = 0; index < WORD_LENGTH; index++)
+  for (uint8_t index = 0; index < NUM_EXCLUDED_PATTERNS; index++)
   {
-    if (last_guess_evaluation[index] == POSITION_AND_LETTER_CORRECT)
-      count++;
+    excluded_pattern.set_pattern(EXCLUDED_PATTERNS[index]);
+
+    if (excluded_pattern.matches_word(word))
+      return true;
   }
 
-  return (count >= 4);
+  return false;
 }
 
 
@@ -456,11 +455,10 @@ void RushGameplay::show_help_screen() const
     "",
     "(continued on next page)"
   };
-  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 12;
+  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 11;
   const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
-    "When you get four GREEN letters, the timer",
-    "will stop. If you fail to guess the word",
-    "in 40 tries, the game will end.",
+    "If you fail to guess the word in 40 tries,",
+    "the game will end.",
     "",
     "Controls:",
     "  [2nd]/[enter]  . . . . . . Enter guess",
@@ -587,8 +585,9 @@ void RushGameplay::swap_target_word()
 
   pattern.set_pattern(pattern_string);
 
-  if (!pattern.is_all_wildcards())
-      dictionary.get_random_word_that_fits_pattern(pattern, target);
+  do {
+    dictionary.get_random_word_that_fits_pattern(pattern, target);
+  } while (does_word_match_excluded_patterns(target));
 
   return;
 }
