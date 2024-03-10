@@ -104,8 +104,8 @@ static bool ensure_dictionary_is_accessible()
 
 static int main_menu()
 {
-  const uint8_t NUM_OPTIONS = 3;
-  const char* BUTTON_TITLES[] = { "Play Game", "Enter Code", "Quit" };
+  const uint8_t NUM_OPTIONS = 2;
+  const char* BUTTON_TITLES[] = { "Play Game", "Enter Code" };
 
   uint8_t option_index = 0;
   uint8_t button_ypos;
@@ -179,7 +179,7 @@ static int main_menu()
       );
     }
 
-    button_ypos = 135;
+    button_ypos = 145;
 
     for (uint8_t index = 0; index < NUM_OPTIONS; index++)
     {
