@@ -239,8 +239,8 @@ void Gameplay::draw_evaluated_guess(
 
 pause_menu_code_t Gameplay::pause_menu() const
 {
-  const uint8_t NUM_OPTIONS = 3;
-  const char* BUTTON_TITLES[NUM_OPTIONS] = { "Resume", "Show Word", "Quit" };
+  const uint8_t NUM_OPTIONS = 2;
+  const char* BUTTON_TITLES[NUM_OPTIONS] = { "Resume", "Show Word" };
 
   GuiText text;
   Container container;
@@ -254,7 +254,7 @@ pause_menu_code_t Gameplay::pause_menu() const
     gfx_HorizLine_NoClip(0, ypos, LCD_WIDTH);
 
   container.set_width(200);
-  container.set_height(160);
+  container.set_height(140);
   container.center_both_axes_on_screen();
   container.draw();
   text.set_font(GuiText::DOUBLE_SIZE_WITH_SHADOW);
@@ -294,31 +294,29 @@ pause_menu_code_t Gameplay::pause_menu() const
       else
         option_index = NUM_OPTIONS - 1;
     }
-
-    if (Keypad::is_down_repeating(kb_KeyDown))
+    else if (Keypad::is_down_repeating(kb_KeyDown))
     {
       if (option_index + 1 < NUM_OPTIONS)
         option_index++;
       else
         option_index = 0;
     }
-
-    if (
+    else if (Keypad::was_released_exclusive(kb_KeyClear))
+    {
+      return QUIT_GAME;
+    }
+    else if (
       Keypad::was_released_exclusive(kb_Key2nd)
       || Keypad::was_released_exclusive(kb_KeyEnter)
     )
     {
-      if (option_index == 1)
-      {
-        return (pause_menu_code_t)(QUIT_GAME | REVEAL);
-      }
-      else if (option_index == 2)
-      {
-        return QUIT_GAME;
-      }
-      else
+      if (option_index == 0)
       {
         return RESUME_GAME;
+      }
+      else if (option_index == 1)
+      {
+        return (pause_menu_code_t)(QUIT_GAME | REVEAL);
       }
     }
   }
