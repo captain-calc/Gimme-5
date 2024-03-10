@@ -24,4 +24,6 @@ spr_page_dot.h
 spr_page_dot.c
 spr_page_dot_slot.h
 spr_page_dot_slot.c
+spr_rush_timer_icon.h
+spr_rush_timer_icon.c
 gfx.h

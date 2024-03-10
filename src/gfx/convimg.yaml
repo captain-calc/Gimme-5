@@ -31,6 +31,7 @@ converts:
     - spr_notification_icon.png
     - spr_page_dot.png
     - spr_page_dot_slot.png
+    - spr_rush_timer_icon.png
 
 outputs:
   - type: c

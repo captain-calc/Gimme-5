@@ -88,9 +88,16 @@ void Timer::draw() const
   container.draw();
 
   text.set_font(GuiText::NORMAL_SIZE_WITH_SHADOW);
-  text.set_xpos(container.get_xpos() + 8);
-  text.set_ypos(container.get_ypos() + 6);
+  text.set_xpos(container.get_xpos() + 6);
+  text.set_ypos(container.get_ypos() + 5);
   text.draw_unsigned_int(this->num_seconds_left);
+
+  gfx_TransparentSprite_NoClip(
+    spr_rush_timer_icon,
+    this->XPOS + this->WIDTH - spr_rush_timer_icon->width + 10,
+    this->YPOS - 3
+  );
+
   return;
 }
 
@@ -98,7 +105,7 @@ void Timer::draw() const
 void Timer::blit() const
 {
   gfx_BlitRectangle(
-    gfx_buffer, this->XPOS, this->YPOS, this->WIDTH + 2, this->HEIGHT + 2
+    gfx_buffer, this->XPOS, this->YPOS - 3, this->WIDTH + 2, this->HEIGHT + 5
   );
   return;
 }
