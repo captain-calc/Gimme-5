@@ -395,13 +395,11 @@ bool RushGameplay::are_all_guesses_used() const
 
 bool RushGameplay::does_word_match_excluded_patterns(IN Word& word) const
 {
-  const uint8_t NUM_EXCLUDED_PATTERNS = 5;
+  const uint8_t NUM_EXCLUDED_PATTERNS = 3;
   const word_string_t EXCLUDED_PATTERNS[NUM_EXCLUDED_PATTERNS] = {
-    { 'S', 'L', 'A', '*', 'S' },
-    { '*', 'E', 'A', 'R', 'S' },
     { '*', 'O', 'U', 'N', 'D' },
-    { '*', 'A', 'N', 'K', 'S' },
-    { '*', 'A', '*', 'E', 'S' }
+    { '*', 'O', 'O', '*', '*' },
+    { '*', '*', '*', '*', 'S' }
   };
 
   WordPattern excluded_pattern;
