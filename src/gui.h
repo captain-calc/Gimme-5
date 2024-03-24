@@ -89,7 +89,9 @@ class Rectangle
     void set_ypos(IN uint8_t ypos);
     void set_width(IN uint24_t width);
     void set_height(IN uint8_t height);
-    void center_on_point(IN point_t& point);
+    void center_horizontally_on_xpos(IN uint24_t xpos);
+    void center_vertically_on_ypos(IN uint8_t ypos);
+    void center_both_axes_on_point(IN point_t& point);
     void center_vertically_on_screen();
     void center_horizontally_on_screen();
     void center_both_axes_on_screen();

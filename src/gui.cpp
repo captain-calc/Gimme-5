@@ -37,6 +37,9 @@ static void draw_filled_rounded_rectangle(
   IN rectangle_t& rectangle, IN uint8_t corner_radius
 );
 static void draw_button(IN button_attributes_t& attributes);
+static void draw_gameplay_option(
+  IN char* title, IN point_t& origin, MOD Container& container
+);
 
 
 // ============================================================================
@@ -260,6 +263,8 @@ void Rectangle::set_ypos(IN uint8_t ypos)
 
 void Rectangle::set_width(IN uint24_t width)
 {
+  assert(width <= LCD_WIDTH);
+
   rectangle.width = width;
   return;
 }
@@ -267,33 +272,49 @@ void Rectangle::set_width(IN uint24_t width)
 
 void Rectangle::set_height(IN uint8_t height)
 {
+  assert(height <= LCD_HEIGHT);
+
   rectangle.height = height;
   return;
 }
 
 
-void Rectangle::center_on_point(IN point_t& point)
+void Rectangle::center_horizontally_on_xpos(IN uint24_t xpos)
 {
-  rectangle.xpos = point.xpos - (rectangle.width / 2);
-  rectangle.ypos = point.ypos - (rectangle.height / 2);
+  assert((xpos - (rectangle.width / 2)) < LCD_WIDTH);
+
+  rectangle.xpos = xpos - (rectangle.width / 2);
+  return;
+}
+
+
+void Rectangle::center_vertically_on_ypos(IN uint8_t ypos)
+{
+  assert(ypos - (rectangle.height / 2));
+
+  rectangle.ypos = ypos - (rectangle.height / 2);
+  return;
+}
+
+
+void Rectangle::center_both_axes_on_point(IN point_t& point)
+{
+  center_horizontally_on_xpos(point.xpos);
+  center_vertically_on_ypos(point.ypos);
   return;
 }
 
 
 void Rectangle::center_vertically_on_screen()
 {
-  assert(rectangle.height < LCD_HEIGHT);
-
-  rectangle.ypos = (LCD_HEIGHT - rectangle.height) / 2;
+  center_vertically_on_ypos(LCD_HEIGHT / 2);
   return;
 }
 
 
 void Rectangle::center_horizontally_on_screen()
 {
-  assert(rectangle.width < LCD_WIDTH);
-
-  rectangle.xpos = (LCD_WIDTH - rectangle.width) / 2;
+  center_horizontally_on_xpos(LCD_WIDTH / 2);
   return;
 }
 
@@ -445,7 +466,7 @@ void DecoratedRectangle::shrink_towards_center_by_num_pixels(
 
   rectangle.width -= num_pixels;
   rectangle.height -= num_pixels;
-  center_on_point(point);
+  center_both_axes_on_point(point);
   return;
 }
 
@@ -744,44 +765,6 @@ void gui_DrawPageNumberIndicator(
 }
 
 
-static void draw_gameplay_option(
-  IN char* title, IN point_t& origin, MOD Container& container
-)
-{
-  const uint24_t CONTAINER_WIDTH = 86;
-  const uint8_t CONTAINER_HEIGHT = 120;
-
-  GuiText text;
-  DecoratedRectangle icon_background;
-  point_t icon_background_center = {
-    .xpos = origin.xpos,
-    .ypos = (uint8_t)(origin.ypos + 12 + (CONTAINER_HEIGHT / 2))
-  };
-
-  container.set_xpos(origin.xpos - (CONTAINER_WIDTH / 2));
-  container.set_ypos(origin.ypos);
-  container.set_width(CONTAINER_WIDTH);
-  container.set_height(CONTAINER_HEIGHT);
-  container.set_border_color(WHITE);
-  container.draw();
-
-  icon_background.set_width(CONTAINER_WIDTH - 10);
-  icon_background.set_height(CONTAINER_HEIGHT - 35);
-  icon_background.center_on_point(icon_background_center);
-  icon_background.set_color(BLACK);
-  icon_background.set_border_radius(6);
-  icon_background.draw();
-
-  text.set_font(GuiText::GAMEPLAY_OPTION_TITLE);
-  text.set_xpos(
-    container.get_xpos() + ((CONTAINER_WIDTH - gfx_GetStringWidth(title)) / 2)
-  );
-  text.set_ypos(container.get_ypos() + 8);
-  text.draw_string(title);
-  return;
-}
-
-
 void gui_DrawGameplayOption(IN char* title, IN point_t& origin)
 {
   Container container;
@@ -1017,5 +1000,46 @@ static void draw_button(IN button_attributes_t& attributes)
     button_ypos + message_vertical_padding + border_thickness
   );
 
+  return;
+}
+
+
+static void draw_gameplay_option(
+  IN char* title, IN point_t& origin, MOD Container& container
+)
+{
+  const uint24_t CONTAINER_WIDTH = 86;
+  const uint8_t CONTAINER_HEIGHT = 120;
+  const uint8_t TITLE_HEIGHT = 30;
+  const uint8_t SPACING_AROUND_ICON_BACKGROUND = 5;
+
+  GuiText text;
+  DecoratedRectangle icon_background;
+
+  container.set_ypos(origin.ypos);
+  container.set_width(CONTAINER_WIDTH);
+  container.set_height(CONTAINER_HEIGHT);
+  container.center_horizontally_on_xpos(origin.xpos);
+  container.set_border_color(WHITE);
+  container.draw();
+
+  icon_background.set_ypos(origin.ypos + TITLE_HEIGHT);
+  icon_background.set_width(
+    CONTAINER_WIDTH - (2 * SPACING_AROUND_ICON_BACKGROUND)
+  );
+  icon_background.set_height(
+    CONTAINER_HEIGHT - TITLE_HEIGHT - SPACING_AROUND_ICON_BACKGROUND
+  );
+  icon_background.center_horizontally_on_xpos(origin.xpos);
+  icon_background.set_color(BLACK);
+  icon_background.set_border_radius(6);
+  icon_background.draw();
+
+  text.set_font(GuiText::GAMEPLAY_OPTION_TITLE);
+  text.set_xpos(
+    container.get_xpos() + ((CONTAINER_WIDTH - gfx_GetStringWidth(title)) / 2)
+  );
+  text.set_ypos(container.get_ypos() + 8);
+  text.draw_string(title);
   return;
 }
