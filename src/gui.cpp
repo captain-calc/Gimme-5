@@ -752,6 +752,11 @@ static void draw_gameplay_option(
   const uint8_t CONTAINER_HEIGHT = 120;
 
   GuiText text;
+  DecoratedRectangle icon_background;
+  point_t icon_background_center = {
+    .xpos = origin.xpos,
+    .ypos = (uint8_t)(origin.ypos + 12 + (CONTAINER_HEIGHT / 2))
+  };
 
   container.set_xpos(origin.xpos - (CONTAINER_WIDTH / 2));
   container.set_ypos(origin.ypos);
@@ -760,21 +765,12 @@ static void draw_gameplay_option(
   container.set_border_color(WHITE);
   container.draw();
 
-  rectangle_t header = {
-    .xpos = container.get_xpos() + 5,
-    .ypos = (uint8_t)(container.get_ypos() + 5),
-    .width = CONTAINER_WIDTH - 10,
-    .height = 20
-  };
-   rectangle_t body = {
-    .xpos = header.xpos,
-    .ypos = (uint8_t)(header.ypos + header.height + 5),
-    .width = CONTAINER_WIDTH - 10,
-    .height = (uint8_t)(CONTAINER_HEIGHT - header.height - 15)
-  };
-
-  gfx_SetColor(BLACK);
-  draw_filled_rounded_rectangle(body, 6);
+  icon_background.set_width(CONTAINER_WIDTH - 10);
+  icon_background.set_height(CONTAINER_HEIGHT - 35);
+  icon_background.center_on_point(icon_background_center);
+  icon_background.set_color(BLACK);
+  icon_background.set_border_radius(6);
+  icon_background.draw();
 
   text.set_font(GuiText::GAMEPLAY_OPTION_TITLE);
   text.set_xpos(

@@ -446,7 +446,7 @@ void RushGameplay::show_help_screen() const
   const char* THIRD_PAGE_STRINGS[NUM_STRINGS_ON_THIRD_PAGE] = {
     "The Rush:",
     "",
-    "Every 30 seconds, the game will change the",
+    "Every 60 seconds, the game will change the",
     "target word. However, if your last guess had",
     "one or more GREEN letters in it, the game will",
     "pick a word with those letters and in those",

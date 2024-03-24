@@ -24,7 +24,7 @@ class Timer
     const uint8_t HEIGHT = 18;
     const uint24_t XPOS = LCD_WIDTH - WIDTH - 14;
     const uint8_t YPOS = 10;
-    const uint8_t RELOAD_VALUE = 30;
+    const uint8_t RELOAD_VALUE = 60;
 
     clock_t start_timestamp;
     uint8_t num_seconds_left;
