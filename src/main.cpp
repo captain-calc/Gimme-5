@@ -443,7 +443,15 @@ static void show_word_code_entry_menu_help()
 
   gui_DrawHelpScreen(STRINGS, NUM_STRINGS);
   gui_TransitionIn();
-  Keypad::block_until_any_key_released();
+
+  while (true)
+  {
+    Keypad::update_state();
+
+    if (Keypad::was_released_exclusive(kb_KeyClear))
+      break;
+  }
+
   gui_TransitionOut();
   return;
 }
