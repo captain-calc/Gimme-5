@@ -316,7 +316,7 @@ void OriginalGameplay::show_help_screen() const
     "Letters that are not in the target word",
     "will be removed from the onscreen alphabet."
   };
-  const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 8;
+  const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 14;
   const char* THIRD_PAGE_STRINGS[NUM_STRINGS_ON_THIRD_PAGE] = {
     "Controls:",
     "  [2nd]/[enter]  . . . . . . Enter guess",
@@ -325,6 +325,12 @@ void OriginalGameplay::show_help_screen() const
     "",
     "Use the the buttons associated with the",
     "green A-Z letters to enter a five-letter",
+    "word.",
+    "",
+    "After you complete a game, it will encrypt the",
+    "target word, producing a \"word code.\" You",
+    "can share these codes with other Gimme 5",
+    "players to challenge them to guess the same",
     "word."
   };
   const uint8_t NUM_PAGES = 3;

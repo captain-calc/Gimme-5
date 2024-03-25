@@ -422,8 +422,11 @@ static void invalid_code_notification()
 
 static void show_word_code_entry_menu_help()
 {
-  const uint8_t NUM_STRINGS = 12;
+  const uint8_t NUM_STRINGS = 15;
   const char* STRINGS[NUM_STRINGS] = {
+    "In this menu, you can enter word codes",
+    "to play specific words in Original mode.",
+    "",
     "Controls:",
     "  [2nd]/[enter]  . . . . . . Enter code",
     "  [del]  . . . . . . . . . . . . . . . . Delete last character",
