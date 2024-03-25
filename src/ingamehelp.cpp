@@ -37,6 +37,7 @@ typedef struct
 
 
 InGameHelp InGameHelp::instance;
+uint8_t InGameHelp::version;
 uint8_t InGameHelp::shown_help_flags;
 
 
@@ -51,7 +52,12 @@ bool InGameHelp::must_show_help_for(IN HELP_FLAG help_flag)
 
 InGameHelp::InGameHelp()
 {
-  shown_help_flags = get_shown_help_flags_from_appvar();
+  if (!load_from_appvar())
+    load_defaults();
+
+  if (this->LATEST_VERSION != this->version)
+    load_defaults();
+
   return;
 }
 
@@ -59,8 +65,8 @@ InGameHelp::InGameHelp()
 InGameHelp::~InGameHelp()
 {
   const appvar_data_t DATA = {
-    .version = VERSION,
-    .shown_help_flags = shown_help_flags
+    .version = this->version,
+    .shown_help_flags = this->shown_help_flags
   };
 
   ti_var_t slot;
@@ -75,7 +81,7 @@ InGameHelp::~InGameHelp()
 }
 
 
-uint8_t InGameHelp::get_shown_help_flags_from_appvar()
+bool InGameHelp::load_from_appvar()
 {
   ti_var_t slot;
   appvar_data_t data;
@@ -84,7 +90,19 @@ uint8_t InGameHelp::get_shown_help_flags_from_appvar()
   {
     ti_Read(&data, sizeof data, 1, slot);
     ti_Close(slot);
+
+    this->version = data.version;
+    this->shown_help_flags = data.shown_help_flags;
+    return true;
   }
 
-  return data.shown_help_flags;
+  return false;
+}
+
+
+void InGameHelp::load_defaults()
+{
+  this->version = this->LATEST_VERSION;
+  this->shown_help_flags = 0;
+  return;
 }

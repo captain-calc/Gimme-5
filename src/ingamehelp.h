@@ -22,13 +22,15 @@ class InGameHelp
     static bool must_show_help_for(IN HELP_FLAG help_flag);
 
   private:
-    const uint8_t VERSION = 1;
+    const uint8_t LATEST_VERSION = 1;
     static InGameHelp instance;
+    static uint8_t version;
     static uint8_t shown_help_flags;
 
     InGameHelp();
     ~InGameHelp();
-    uint8_t get_shown_help_flags_from_appvar();
+    bool load_from_appvar();
+    void load_defaults();
 };
 
 
