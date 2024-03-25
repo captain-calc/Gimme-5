@@ -457,8 +457,13 @@ void RushGameplay::show_help_screen() const
     "in it. If you fail to guess the word in 20",
     "tries, the game will end."
   };
-  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 8;
+  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 13;
   const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
+    "This gameplay mode requires concentration.",
+    "Playing it with friends or family can",
+    "greatly improve the experience as it",
+    "requires quick guessing to win.",
+    "",
     "Controls:",
     "  [2nd]/[enter]  . . . . . . Enter guess",
     "  [del]  . . . . . . . . . . . . . . . . Delete last letter",
