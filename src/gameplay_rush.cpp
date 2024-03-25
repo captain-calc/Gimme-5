@@ -431,7 +431,7 @@ void RushGameplay::show_help_screen() const
     "Every 60 seconds, the game will change the",
     "target word. However, if your last guess had",
     "one or more GREEN letters in it, the game will",
-    "pick a word with those letters and in those",
+    "pick a word with those letters in those",
     "positions.",
     "",
     "BEWARE! If you leave out a GREEN letter, the",
@@ -441,7 +441,7 @@ void RushGameplay::show_help_screen() const
   };
   const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 14;
   const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
-    "This gameplay mode requires concentration.",
+    "This gameplay mode needs concentration.",
     "Playing it with friends or family can",
     "greatly improve the experience as it",
     "requires quick guessing to win.",
