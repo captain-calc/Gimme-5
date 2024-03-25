@@ -9,8 +9,8 @@ DESCRIPTION = "Gimme 5: All Stars "$(VERSION)
 COMPRESSED = YES
 ARCHIVED = NO
 
-CFLAGS = -Wall -Wextra -Oz -DEXTERN__PROGRAM_VERSION=$(VERSION)
-CXXFLAGS = -Wall -Wextra -Oz -DEXTERN__PROGRAM_VERSION=$(VERSION)
+CFLAGS = -Wall -Wextra -Oz -DEXTERN__PROGRAM_VERSION=\"$(VERSION)\"
+CXXFLAGS = -Wall -Wextra -Oz -DEXTERN__PROGRAM_VERSION=\"$(VERSION)\"
 
 # ----------------------------
 

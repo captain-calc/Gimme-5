@@ -214,12 +214,12 @@ static void show_main_menu_help()
     "This help menu will give you a quick tour of",
     "how to navigate the program.",
     "",
-    "Help Menu Controls",
+    "Help Menu Controls:",
     "  [left]/[right] . . . . . . . . . Flip pages",
     "  [clear] . . . . . . . . . . . . . . Close help menu",
     "",
     "Press [mode] at any time to access help.",
-    "Press [clear] to exit menus and games",
+    "Press [clear] to exit menus and games.",
     "",
     "Press [right] to go to the next page."
   };
@@ -232,7 +232,7 @@ static void show_main_menu_help()
     "",
     "",
     "Author:  Captain Calc",
-    "Version:  Pre-Release Beta",
+    ("Version: " EXTERN__PROGRAM_VERSION),
     "",
     "",
     "Have fun!"
