@@ -216,7 +216,7 @@ static void show_main_menu_help()
     "",
     "Help Menu Controls:",
     "  [left]/[right] . . . . . . . . . Flip pages",
-    "  [clear] . . . . . . . . . . . . . . Close help menu",
+    "  [clear]  . . . . . . . . . . . . . . . . Close help menu",
     "",
     "Press [mode] at any time to access help.",
     "Press [clear] to exit menus and games.",
