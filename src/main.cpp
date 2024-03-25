@@ -260,13 +260,11 @@ static void show_main_menu_help()
     switch (page_num)
     {
       case 1:
-        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE, 67);
+        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE);
         break;
 
       case 2:
-        gui_DrawHelpScreen(
-          SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE, 67
-        );
+        gui_DrawHelpScreen(SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE);
         break;
     };
 
@@ -440,7 +438,7 @@ static void show_word_code_entry_menu_help()
     "correctly."
   };
 
-  gui_DrawHelpScreen(STRINGS, NUM_STRINGS, 67);
+  gui_DrawHelpScreen(STRINGS, NUM_STRINGS);
   gui_TransitionIn();
   Keypad::block_until_any_key_released();
   gui_TransitionOut();

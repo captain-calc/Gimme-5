@@ -348,17 +348,15 @@ void OriginalGameplay::show_help_screen() const
     switch (page_num)
     {
       case 1:
-        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE, 67);
+        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE);
         break;
 
       case 2:
-        gui_DrawHelpScreen(
-          SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE, 67
-        );
+        gui_DrawHelpScreen(SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE);
         break;
 
       case 3:
-        gui_DrawHelpScreen(THIRD_PAGE_STRINGS, NUM_STRINGS_ON_THIRD_PAGE, 67);
+        gui_DrawHelpScreen(THIRD_PAGE_STRINGS, NUM_STRINGS_ON_THIRD_PAGE);
         break;
     };
 

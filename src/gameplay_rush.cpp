@@ -21,7 +21,6 @@
 
 Timer::Timer()
 {
-  this->frozen = false;
   reload();
   return;
 }
@@ -30,9 +29,6 @@ Timer::Timer()
 void Timer::update()
 {
   clock_t timestamp = clock();
-
-  if (this->frozen)
-    return;
 
   if ((timestamp - this->start_timestamp) > CLOCKS_PER_SEC)
   {
@@ -50,20 +46,6 @@ void Timer::reload()
 {
   this->start_timestamp = clock();
   this->num_seconds_left = RELOAD_VALUE;
-  return;
-}
-
-
-void Timer::freeze_updates()
-{
-  this->frozen = true;
-  return;
-}
-
-
-void Timer::thaw_updates()
-{
-  this->frozen = false;
   return;
 }
 
@@ -457,7 +439,7 @@ void RushGameplay::show_help_screen() const
     "in it. If you fail to guess the word in 20",
     "tries, the game will end."
   };
-  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 13;
+  const uint8_t NUM_STRINGS_ON_FOURTH_PAGE = 14;
   const char* FOURTH_PAGE_STRINGS[NUM_STRINGS_ON_FOURTH_PAGE] = {
     "This gameplay mode requires concentration.",
     "Playing it with friends or family can",
@@ -468,6 +450,7 @@ void RushGameplay::show_help_screen() const
     "  [2nd]/[enter]  . . . . . . Enter guess",
     "  [del]  . . . . . . . . . . . . . . . . Delete last letter",
     "  [clear] . . . . . . . . . . . . . . Pause game",
+    "  [up]/[down] . . . . . . . . . Scroll past guesses",
     "",
     "Use the the buttons associated with the",
     "green A-Z letters to enter a five-letter",
@@ -494,21 +477,19 @@ void RushGameplay::show_help_screen() const
     switch (page_num)
     {
       case 1:
-        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE, 67);
+        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE);
         break;
 
       case 2:
-        gui_DrawHelpScreen(
-          SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE, 67
-        );
+        gui_DrawHelpScreen(SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE);
         break;
 
       case 3:
-        gui_DrawHelpScreen(THIRD_PAGE_STRINGS, NUM_STRINGS_ON_THIRD_PAGE, 67);
+        gui_DrawHelpScreen(THIRD_PAGE_STRINGS, NUM_STRINGS_ON_THIRD_PAGE);
         break;
 
       case 4:
-        gui_DrawHelpScreen(FOURTH_PAGE_STRINGS, NUM_STRINGS_ON_FOURTH_PAGE, 67);
+        gui_DrawHelpScreen(FOURTH_PAGE_STRINGS, NUM_STRINGS_ON_FOURTH_PAGE);
         break;
     };
 

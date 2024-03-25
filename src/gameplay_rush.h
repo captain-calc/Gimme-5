@@ -28,7 +28,6 @@ class Timer
 
     clock_t start_timestamp;
     uint8_t num_seconds_left;
-    bool frozen;
 };
 
 

@@ -170,9 +170,7 @@ class Notification
 void gui_StartGraphics();
 void gui_EndGraphics();
 
-void gui_DrawHelpScreen(
-  IN char** strings, IN uint8_t num_strings, IN uint8_t ypos
-);
+void gui_DrawHelpScreen(IN char** strings, IN uint8_t num_strings);
 
 void gui_DrawButton(IN char* title, IN uint8_t ypos);
 void gui_DrawButtonSelected(IN char* title, IN uint8_t ypos);

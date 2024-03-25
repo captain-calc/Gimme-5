@@ -605,14 +605,12 @@ void gui_EndGraphics()
 }
 
 
-void gui_DrawHelpScreen(
-  IN char** strings, IN uint8_t num_strings, IN uint8_t ypos
-)
+void gui_DrawHelpScreen(IN char** strings, IN uint8_t num_strings)
 {
   const uint8_t LINE_HEIGHT = GFX_DEFAULT_FONT_HEIGHT + 3;
 
   GuiText text;
-  uint8_t text_ypos = ypos;
+  uint8_t text_ypos = 60;
 
   gui_DrawCheckeredBackground();
   gui_DrawMenuTitle("Help");
