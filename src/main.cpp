@@ -458,15 +458,19 @@ static void show_word_code_entry_menu_help()
 
 static void gameplay_menu()
 {
+  const uint8_t NUM_OPTIONS = 3;
+
   OriginalGameplay original_gameplay;
   RushGameplay rush_gameplay;
   AnagramGameplay anagram_gameplay;
-  Gameplay* gameplay_options[] = {
+  Gameplay* gameplay_options[NUM_OPTIONS] = {
     &rush_gameplay, &original_gameplay, &anagram_gameplay
   };
-  const uint8_t NUM_OPTIONS = 3;
+  GuiText text;
+
   uint8_t option_index = 1;
   bool transition_in = true;
+  bool draw_help = false;
   point_t origin;
 
   gui_TransitionOut();
@@ -475,7 +479,11 @@ static void gameplay_menu()
   {
     Keypad::update_state();
 
-    if (Keypad::was_released_exclusive(kb_KeyClear))
+    if (Keypad::was_released_exclusive(kb_KeyMode))
+    {
+      draw_help = true;
+    }
+    else if (Keypad::was_released_exclusive(kb_KeyClear))
     {
       break;
     }
@@ -485,6 +493,8 @@ static void gameplay_menu()
         option_index--;
       else
         option_index = NUM_OPTIONS - 1;
+
+      draw_help = false;
     }
     else if (Keypad::is_down_repeating(kb_KeyRight))
     {
@@ -492,6 +502,8 @@ static void gameplay_menu()
         option_index++;
       else
         option_index = 0;
+
+      draw_help = false;
     }
     else if (
       Keypad::was_released_exclusive(kb_Key2nd)
@@ -561,6 +573,13 @@ static void gameplay_menu()
       2,
       2
     );
+
+    if (draw_help)
+    {
+      text.set_font(GuiText::NORMAL_SIZE_WITH_SHADOW);
+      text.set_ypos(LCD_HEIGHT - GFX_DEFAULT_FONT_HEIGHT - 10);
+      text.draw_centered_string("[clear]: Return to main menu");
+    }
 
     if (transition_in)
     {
