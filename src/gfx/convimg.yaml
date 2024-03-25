@@ -29,6 +29,8 @@ converts:
     - spr_character_tile_orange.png
     - spr_character_slot.png
     - spr_notification_icon.png
+    - spr_page_arrow_left.png
+    - spr_page_arrow_right.png
     - spr_page_dot.png
     - spr_page_dot_slot.png
     - spr_rush_timer_icon.png

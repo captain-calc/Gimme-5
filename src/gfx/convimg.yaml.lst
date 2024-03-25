@@ -20,6 +20,10 @@ spr_character_slot.h
 spr_character_slot.c
 spr_notification_icon.h
 spr_notification_icon.c
+spr_page_arrow_left.h
+spr_page_arrow_left.c
+spr_page_arrow_right.h
+spr_page_arrow_right.c
 spr_page_dot.h
 spr_page_dot.c
 spr_page_dot_slot.h

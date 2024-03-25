@@ -751,6 +751,12 @@ void gui_DrawPageNumberIndicator(
     .ypos = 219
   };
 
+  gfx_TransparentSprite_NoClip(
+    spr_page_arrow_left,
+    dot.xpos - spr_page_arrow_left->width - HORIZONTAL_SPACING,
+    dot.ypos
+  );
+
   for (uint8_t page_num = 1; page_num <= num_pages; page_num++)
   {
     if (page_num == current_page_num)
@@ -760,6 +766,8 @@ void gui_DrawPageNumberIndicator(
 
     dot.xpos += spr_page_dot->width + HORIZONTAL_SPACING;
   }
+
+  gfx_TransparentSprite_NoClip(spr_page_arrow_right, dot.xpos,dot.ypos);
 
   return;
 }
