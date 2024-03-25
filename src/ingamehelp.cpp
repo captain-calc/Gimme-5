@@ -6,6 +6,29 @@
 #define HELP_APPVAR ("GIMME5S")
 
 
+// VERSION 0 (Pre-Release Beta)
+//
+//    enum HELP_FLAG : uint8_t
+//    {
+//      MAIN_MENU            = (1 << 0),
+//      WORD_CODE_ENTRY_MENU = (1 << 1),
+//      GAME                 = (1 << 2)
+//    };
+//
+// VERSION 1 (Pre-Release Beta 2)
+//
+//    enum HELP_FLAG : uint8_t
+//    {
+//      MAIN_MENU            = (1 << 0),
+//      WORD_CODE_ENTRY_MENU = (1 << 1),
+//      ORIGINAL_GAMEPLAY    = (1 << 2),
+//      RUSH_GAMEPLAY        = (1 << 3)
+//    };
+//
+//   The same parser can be used for v0 and v1 because v1 merely used some
+// previously unused bits in `shown_help_flags`.
+
+
 typedef struct
 {
   uint8_t version;

@@ -3,11 +3,11 @@
 # ----------------------------
 
 NAME = GIMME5
-VERSION = "Pre-Release Beta"
+VERSION = "Pre-Release Beta 2"
 ICON = icon.png
 DESCRIPTION = "Gimme 5: All Stars "$(VERSION)
 COMPRESSED = YES
-ARCHIVED = NO
+ARCHIVED = YES
 
 CFLAGS = -Wall -Wextra -Oz -DEXTERN__PROGRAM_VERSION=\"$(VERSION)\"
 CXXFLAGS = -Wall -Wextra -Oz -DEXTERN__PROGRAM_VERSION=\"$(VERSION)\"
