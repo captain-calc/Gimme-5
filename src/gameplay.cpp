@@ -348,6 +348,44 @@ pause_menu_code_t Gameplay::pause_menu() const
 }
 
 
+void AnagramGameplay::play_random_word()
+{
+  Container container;
+  GuiText text;
+
+  gfx_SetColor(BLACK);
+
+  for (uint8_t ypos = 0; ypos < LCD_HEIGHT; ypos += 2)
+    gfx_HorizLine_NoClip(0, ypos, LCD_WIDTH);
+
+  container.set_width(250);
+  container.set_height(100);
+  container.center_both_axes_on_screen();
+  container.draw();
+  text.set_font(GuiText::DOUBLE_SIZE_WITH_SHADOW);
+  text.set_ypos(container.get_ypos() + 10);
+  text.draw_centered_string("Gameplay Mode 3");
+  text.set_font(GuiText::NORMAL_SIZE_WITH_SHADOW);
+  text.set_ypos(container.get_ypos() + 45);
+  text.draw_centered_string("This gameplay mode is under");
+  text.set_ypos(container.get_ypos() + 56);
+  text.draw_centered_string("construction.");
+  text.set_ypos(container.get_ypos() + 81);
+  text.draw_centered_string("[clear]: Close");
+  gfx_BlitBuffer();
+
+  while (true)
+  {
+    Keypad::update_state();
+
+    if (Keypad::was_released_exclusive(kb_KeyClear))
+      break;
+  }
+
+  return;
+}
+
+
 // ============================================================================
 // STATIC FUNCTION DEFINITIONS
 // ============================================================================

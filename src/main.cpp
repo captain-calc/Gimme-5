@@ -549,10 +549,10 @@ static void gameplay_menu()
     if (option_index == 2)
     {
       origin.ypos = 66;
-      gui_DrawGameplayOptionSelected("Anagram-7", origin);
+      gui_DrawGameplayOptionSelected("???", origin);
     }
     else
-      gui_DrawGameplayOption("Anagram-7", origin);
+      gui_DrawGameplayOption("???", origin);
 
     gfx_ScaledTransparentSprite_NoClip(
       spr_gameplay_anagram_seven_icon,

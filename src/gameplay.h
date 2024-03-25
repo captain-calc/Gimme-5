@@ -61,7 +61,7 @@ class AnagramGameplay : public Gameplay
 {
   public:
     AnagramGameplay(): Gameplay(2) { return; }
-    void play_random_word() { return; }
+    void play_random_word();
 };
 
 
