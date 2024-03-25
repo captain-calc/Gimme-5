@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <fileioc.h>
+#include <string.h>
 
 #include "ccdbg/ccdbg.h"
 #include "dictionary.h"
@@ -139,16 +140,22 @@ void Dictionary::get_random_word_that_fits_pattern(
   assert(dictionary_loaded);
 
   const uint24_t STARTING_INDEX = rand() % num_words;
+  const uint8_t MAX_NUM_WORD_CHOICES = 50;
 
+  word_string_t word_choices[MAX_NUM_WORD_CHOICES];
   Word word;
   uint24_t index = STARTING_INDEX;
+  uint8_t num_word_choices = 0;
 
-  while (true)
+  while (num_word_choices < MAX_NUM_WORD_CHOICES && index < num_words)
   {
     word = word_list[index];
 
     if (pattern.matches_word(word))
-      break;
+    {
+      memcpy(word_choices[num_word_choices], word_list[index], WORD_LENGTH);
+      num_word_choices++;
+    }
 
     index++;
 
@@ -159,6 +166,6 @@ void Dictionary::get_random_word_that_fits_pattern(
       break;
   }
 
-  random_word = word;
+  random_word = word_choices[rand() % num_word_choices];
   return;
 }
