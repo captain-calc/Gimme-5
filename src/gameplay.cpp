@@ -141,6 +141,14 @@ void Gameplay::draw_word_input(IN word_string_t word) const
   };
   char letter;
 
+  gfx_SetColor(BG_COLOR);
+  gfx_FillRectangle_NoClip(
+    tile_origin.xpos,
+    tile_origin.ypos,
+    INPUT_WIDTH + 1,
+    spr_character_slot->height + 1
+  );
+
   for (uint8_t index = 0; index < WORD_LENGTH; index++)
   {
     letter = word[index];
