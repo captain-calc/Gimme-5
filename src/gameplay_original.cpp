@@ -435,7 +435,11 @@ void OriginalGameplay::play(IN Word& target_word)
     else if (Keypad::was_released_exclusive(kb_KeyClear))
     {
       pause_menu_decision = pause_menu();
-      full_redraw = true;
+
+      if (pause_menu_decision == QUIT_GAME)
+        break;
+      else
+        full_redraw = true;
     }
     else if (
       keypad_GetUppercaseAsciiLetter(letter) && num_letters < WORD_LENGTH
@@ -493,7 +497,7 @@ void OriginalGameplay::play(IN Word& target_word)
       Keypad::block_until_any_key_released();
       break;
     }
-    else if (are_all_guesses_used() || (pause_menu_decision & REVEAL))
+    else if (are_all_guesses_used() || (pause_menu_decision == SHOW_WORD))
     {
       draw_lose_animation();
       Keypad::block_until_any_key_released();
@@ -501,9 +505,6 @@ void OriginalGameplay::play(IN Word& target_word)
       Keypad::block_until_any_key_released();
       break;
     }
-
-    if (pause_menu_decision & QUIT_GAME)
-      break;
   }
 
   gui_TransitionOut();

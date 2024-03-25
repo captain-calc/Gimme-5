@@ -337,7 +337,7 @@ pause_menu_code_t Gameplay::pause_menu() const
       }
       else if (option_index == 1)
       {
-        return (pause_menu_code_t)(QUIT_GAME | REVEAL);
+        return SHOW_WORD;
       }
     }
   }

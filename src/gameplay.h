@@ -12,9 +12,9 @@
 enum pause_menu_code_t : uint8_t
 {
   NO_DECISION = 0,
-  RESUME_GAME = 0,
-  QUIT_GAME   = (1 << 0),
-  REVEAL      = (1 << 1)
+  RESUME_GAME = (1 << 0),
+  QUIT_GAME   = (1 << 1),
+  SHOW_WORD   = (1 << 2)
 };
 
 

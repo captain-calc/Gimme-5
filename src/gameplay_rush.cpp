@@ -133,7 +133,11 @@ void RushGameplay::play_random_word()
     else if (Keypad::was_released_exclusive(kb_KeyClear))
     {
       pause_menu_decision = pause_menu();
-      full_redraw = true;
+
+      if (pause_menu_decision == QUIT_GAME)
+        break;
+      else
+        full_redraw = true;
     }
     else if (
       keypad_GetUppercaseAsciiLetter(letter) && num_letters < WORD_LENGTH
@@ -216,16 +220,13 @@ void RushGameplay::play_random_word()
       results_screen(input);
       break;
     }
-    else if (are_all_guesses_used() || (pause_menu_decision & REVEAL))
+    else if (are_all_guesses_used() || pause_menu_decision == SHOW_WORD)
     {
       draw_lose_animation();
       target.copy_into_string(input);
       results_screen(input);
       break;
     }
-
-    if (pause_menu_decision & QUIT_GAME)
-      break;
   }
 
   gui_TransitionOut();
