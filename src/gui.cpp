@@ -893,7 +893,7 @@ static void draw_filled_rounded_rectangle(
     corner_radius
   );
 
-  if (corner_radius <= rectangle.height)
+  if (corner_radius <= (rectangle.height / 2))
   {
     gfx_FillCircle_NoClip(
       rectangle.xpos + corner_radius,

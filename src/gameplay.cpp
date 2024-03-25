@@ -244,9 +244,11 @@ pause_menu_code_t Gameplay::pause_menu() const
 
   GuiText text;
   Container container;
+  Container header;
   uint8_t option_index = 0;
   uint8_t button_ypos;
   bool first_draw = true;
+  bool draw_help = false;
 
   gfx_SetColor(BLACK);
 
@@ -257,13 +259,21 @@ pause_menu_code_t Gameplay::pause_menu() const
   container.set_height(140);
   container.center_both_axes_on_screen();
   container.draw();
+  header.set_width(150);
+  header.set_height(30);
+  header.center_horizontally_on_screen();
+  header.center_vertically_on_ypos(container.get_ypos());
+  header.set_color(BLUE);
+  header.set_border_radius(14);
+  header.set_z_index(0);
+  header.draw();
   text.set_font(GuiText::DOUBLE_SIZE_WITH_SHADOW);
-  text.set_ypos(container.get_ypos() + 10);
-  text.draw_centered_string("Paused");
+  text.set_ypos(header.get_ypos() + 7);
+  text.draw_centered_string("PAUSED");
 
   while (true)
   {
-    button_ypos = container.get_ypos() + 50;
+    button_ypos = container.get_ypos() + 45;
 
     for (uint8_t index = 0; index < NUM_OPTIONS; index++)
     {
@@ -273,6 +283,13 @@ pause_menu_code_t Gameplay::pause_menu() const
         gui_DrawButton(BUTTON_TITLES[index], button_ypos);
 
       button_ypos += 35;
+    }
+
+    if (draw_help)
+    {
+      text.set_font(GuiText::NORMAL_SIZE_WITH_SHADOW);
+      text.set_ypos(button_ypos + 5);
+      text.draw_centered_string("[clear]: Quit game");
     }
 
     if (first_draw)
@@ -300,6 +317,10 @@ pause_menu_code_t Gameplay::pause_menu() const
         option_index++;
       else
         option_index = 0;
+    }
+    else if (Keypad::was_released_exclusive(kb_KeyMode))
+    {
+      draw_help = true;
     }
     else if (Keypad::was_released_exclusive(kb_KeyClear))
     {

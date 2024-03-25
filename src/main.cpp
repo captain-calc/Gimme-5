@@ -208,7 +208,7 @@ static int main_menu()
 
 static void show_main_menu_help()
 {
-  const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 13;
+  const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 12;
   const char* FIRST_PAGE_STRINGS[NUM_STRINGS_ON_FIRST_PAGE] = {
     "Thank you for downloading Gimme 5: All Stars!",
     "This help menu will give you a quick tour of",
@@ -218,9 +218,8 @@ static void show_main_menu_help()
     "  [left]/[right] . . . . . . . . . Flip pages",
     "  [clear] . . . . . . . . . . . . . . Close help menu",
     "",
-    "Press [mode] at any time to access a help",
-    "menu. Press [clear] to exit menus and",
-    "games.",
+    "Press [mode] at any time to access help.",
+    "Press [clear] to exit menus and games",
     "",
     "Press [right] to go to the next page."
   };
