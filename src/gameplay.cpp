@@ -82,7 +82,7 @@ void AlphabetTracker::draw() const
   rectangle.set_width(LINE_WIDTH + 30);
   rectangle.set_height((2 * GFX_DEFAULT_FONT_HEIGHT) + 6 + 10);
   rectangle.center_horizontally_on_screen();
-  rectangle.set_color(BG_COLOR);
+  rectangle.set_color(DARK_MED_BLUE);
   rectangle.set_border_color(WHITE);
   rectangle.set_border_radius(6);
   rectangle.set_border_thickness(1);
@@ -141,7 +141,7 @@ void Gameplay::draw_word_input(IN word_string_t word) const
   };
   char letter;
 
-  gfx_SetColor(BG_COLOR);
+  gfx_SetColor(DARK_MED_BLUE);
   gfx_FillRectangle_NoClip(
     tile_origin.xpos,
     tile_origin.ypos,

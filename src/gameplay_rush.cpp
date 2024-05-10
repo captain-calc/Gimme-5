@@ -247,7 +247,7 @@ void RushGameplay::draw_game_screen_background() const
   gfx_VertLine(289, 0, LCD_HEIGHT);
   gfx_VertLine(290, 0, LCD_HEIGHT);
 
-  gfx_SetColor(BG_COLOR);
+  gfx_SetColor(DARK_MED_BLUE);
   gfx_FillRectangle_NoClip(33, 0, 254, LCD_HEIGHT);
   return;
 }
@@ -276,7 +276,7 @@ void RushGameplay::draw_guesses() const
     .ypos = 15
   };
 
-  gfx_SetColor(BG_COLOR);
+  gfx_SetColor(DARK_MED_BLUE);
   gfx_FillRectangle_NoClip(33, 0, 254, 200);
 
   for (uint8_t index = START_INDEX; index < UPPER_LIMIT; index++)

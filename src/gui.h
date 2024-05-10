@@ -5,17 +5,18 @@
 #include "typehints.h"
 
 
-#define TRANSPARENT   (0)
-#define BG_COLOR      (1)
-#define BLUE          (2)
-#define MEDIUM_BLUE   (3)
-#define LIGHT_BLUE    (4)
-#define WHITE         (5)
-#define BLACK         (6)
-#define GREEN         (7)
-#define DARK_ORANGE   (8)
-#define ORANGE        (9)
-#define LIGHT_ORANGE (10)
+#define TRANSPARENT    (0)
+#define DARK_BLUE      (1)
+#define DARK_MED_BLUE  (2)
+#define BLUE           (3)
+#define LIGHT_MED_BLUE (4)
+#define LIGHT_BLUE     (5)
+#define WHITE          (6)
+#define BLACK          (7)
+#define GREEN          (8)
+#define DARK_ORANGE    (9)
+#define ORANGE        (10)
+#define LIGHT_ORANGE  (11)
 
 
 #define GFX_DEFAULT_FONT_HEIGHT (8)

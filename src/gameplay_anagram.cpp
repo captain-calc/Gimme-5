@@ -356,7 +356,7 @@ void AnagramGameplay::draw_game_screen_background() const
   gfx_VertLine(289, 0, LCD_HEIGHT);
   gfx_VertLine(290, 0, LCD_HEIGHT);
 
-  gfx_SetColor(BG_COLOR);
+  gfx_SetColor(DARK_MED_BLUE);
   gfx_FillRectangle_NoClip(33, 0, 254, LCD_HEIGHT);
   return;
 }
@@ -433,7 +433,7 @@ void AnagramGameplay::draw_game_screen_foreground(
   GuiText text;
   word_string_t target_string;
 
-  gfx_SetColor(BG_COLOR);
+  gfx_SetColor(DARK_MED_BLUE);
   gfx_FillRectangle_NoClip(33, 0, 254, 200);
 
   this->target.copy_into_string(target_string);

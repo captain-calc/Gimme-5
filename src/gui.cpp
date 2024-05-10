@@ -480,7 +480,7 @@ void DecoratedRectangle::shrink_towards_center_by_num_pixels(
 
 Container::Container()
 {
-  this->set_color(BG_COLOR);
+  this->set_color(DARK_MED_BLUE);
   this->set_border_radius(6);
   this->set_border_thickness(1);
   this->set_border_color(WHITE);
@@ -641,7 +641,7 @@ void gui_DrawButton(IN char* title, IN uint8_t ypos)
     .title = title,
     .ypos = ypos,
     .highlight_color = LIGHT_BLUE,
-    .main_color = MEDIUM_BLUE,
+    .main_color = LIGHT_MED_BLUE,
     .inner_shadow_color = BLUE,
     .text_color = WHITE
   };
@@ -800,8 +800,8 @@ void gui_DrawGameplayOptionSelected(IN char* title, IN point_t& origin)
 
 void gui_DrawCheckeredBackground()
 {
-  gfx_FillScreen(BG_COLOR);
-  gfx_SetColor(BLUE);
+  gfx_FillScreen(DARK_BLUE);
+  gfx_SetColor(DARK_MED_BLUE);
 
   for (uint8_t ypos = 0; ypos < LCD_HEIGHT; ypos += 16)
   {
@@ -831,8 +831,8 @@ void gui_TransitionIn()
 
 void gui_TransitionOut()
 {
-  gfx_FillScreen(BG_COLOR);
-  gfx_SetColor(BLUE);
+  gfx_FillScreen(DARK_BLUE);
+  gfx_SetColor(DARK_MED_BLUE);
 
   for (uint8_t ypos = 0; ypos < LCD_HEIGHT; ypos += 20)
   {

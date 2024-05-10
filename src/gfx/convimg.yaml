@@ -2,16 +2,17 @@ palettes:
   - name: global_palette
     fixed-entries:
       - color: {index:  0, r: 255, g:   0, b: 128}
-      - color: {index:  1, r:  57, g:  87, b: 147}
-      - color: {index:  2, r:  75, g:  99, b: 146}
-      - color: {index:  3, r:  95, g: 119, b: 166}
-      - color: {index:  4, r: 115, g: 139, b: 186}
-      - color: {index:  5, r: 255, g: 255, b: 255}
-      - color: {index:  6, r:   0, g:   0, b:   0}
-      - color: {index:  7, r:  42, g: 230, b: 126}
-      - color: {index:  8, r: 192, g: 105, b:  35}
-      - color: {index:  9, r: 223, g: 129, b:  52}
-      - color: {index: 10, r: 251, g: 174, b: 111}
+      - color: {index:  1, r:  40, g:  60, b: 140}
+      - color: {index:  2, r:  57, g:  87, b: 147}
+      - color: {index:  3, r:  75, g:  99, b: 146}
+      - color: {index:  4, r:  95, g: 119, b: 166}
+      - color: {index:  5, r: 115, g: 139, b: 186}
+      - color: {index:  6, r: 255, g: 255, b: 255}
+      - color: {index:  7, r:   0, g:   0, b:   0}
+      - color: {index:  8, r:  42, g: 230, b: 126}
+      - color: {index:  9, r: 192, g: 105, b:  35}
+      - color: {index: 10, r: 223, g: 129, b:  52}
+      - color: {index: 11, r: 251, g: 174, b: 111}
     images: automatic
 
 converts:
