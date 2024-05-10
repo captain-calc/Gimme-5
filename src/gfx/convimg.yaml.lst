@@ -4,8 +4,8 @@ spr_logo.h
 spr_logo.c
 spr_all_stars_logo.h
 spr_all_stars_logo.c
-spr_gameplay_anagram_seven_icon.h
-spr_gameplay_anagram_seven_icon.c
+spr_gameplay_anagram_icon.h
+spr_gameplay_anagram_icon.c
 spr_gameplay_original_icon.h
 spr_gameplay_original_icon.c
 spr_gameplay_rush_icon.h

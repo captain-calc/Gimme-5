@@ -3,9 +3,9 @@
 # ----------------------------
 
 NAME = GIMME5
-VERSION = "Pre-Release Beta 2"
+VERSION = "1.0.0A"
 ICON = icon.png
-DESCRIPTION = "Gimme 5: All Stars "$(VERSION)
+DESCRIPTION = "Gimme 5: All Stars v"$(VERSION)
 COMPRESSED = YES
 ARCHIVED = YES
 

@@ -21,7 +21,7 @@ converts:
     images:
     - spr_logo.png
     - spr_all_stars_logo.png
-    - spr_gameplay_anagram_seven_icon.png
+    - spr_gameplay_anagram_icon.png
     - spr_gameplay_original_icon.png
     - spr_gameplay_rush_icon.png
     - spr_character_tile_blue.png

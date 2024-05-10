@@ -5,6 +5,7 @@
 
 #include "gfx/gfx.h"
 #include "dictionary.h"
+#include "gameplay_anagram.h"
 #include "gameplay_original.h"
 #include "gameplay_rush.h"
 #include "gui.h"
@@ -561,15 +562,15 @@ static void gameplay_menu()
     if (option_index == 2)
     {
       origin.ypos = 66;
-      gui_DrawGameplayOptionSelected("???", origin);
+      gui_DrawGameplayOptionSelected("Anagram", origin);
     }
     else
-      gui_DrawGameplayOption("???", origin);
+      gui_DrawGameplayOption("Anagram", origin);
 
     gfx_ScaledTransparentSprite_NoClip(
-      spr_gameplay_anagram_seven_icon,
-      origin.xpos - spr_gameplay_anagram_seven_icon->width + 1,
-      origin.ypos + 22,
+      spr_gameplay_anagram_icon,
+      origin.xpos - spr_gameplay_anagram_icon->width + 1,
+      origin.ypos + 38,
       2,
       2
     );

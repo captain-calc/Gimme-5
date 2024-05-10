@@ -156,6 +156,13 @@ void GuiText::set_font(IN font_style_t font_style)
       this->vertical_scale = 2;
       break;
 
+    case TRIPLE_SIZE_WITH_SHADOW:
+      this->foreground_color = WHITE;
+      this->z_index = 3;
+      this->horizontal_scale = 3;
+      this->vertical_scale = 3;
+      break;
+
     case MENU_TITLE:
       this->foreground_color = WHITE;
       this->z_index = 2;

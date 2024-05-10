@@ -19,7 +19,9 @@ class Dictionary
     Dictionary();
     ~Dictionary();
 
+    char* operator[](IN uint24_t index) const;
     bool is_loaded() const;
+    uint24_t get_num_words() const;
     bool contains_word(IN Word& word) const;
     void get_random_word(OUT Word& random_word) const;
     void get_random_word_unlike_given_word(
@@ -30,7 +32,6 @@ class Dictionary
     ) const;
 
   private:
-    static const uint8_t MAX_NUM_PATTERN_MATCHES = 50;
     bool dictionary_loaded;
     word_string_t* word_list;
     uint24_t num_words;
