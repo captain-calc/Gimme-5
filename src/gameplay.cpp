@@ -271,10 +271,14 @@ pause_menu_code_t Gameplay::pause_menu() const
   header.set_height(30);
   header.center_horizontally_on_screen();
   header.center_vertically_on_ypos(container.get_ypos());
-  header.set_color(BLUE);
+  header.set_color(DARK_MED_BLUE);
   header.set_border_radius(14);
   header.set_z_index(0);
   header.draw();
+  gfx_SetColor(DARK_MED_BLUE);
+  gfx_FillRectangle_NoClip(
+    header.get_xpos() - 1, header.get_ypos() + 14, 151, 15
+  );
   text.set_font(GuiText::DOUBLE_SIZE_WITH_SHADOW);
   text.set_ypos(header.get_ypos() + 7);
   text.draw_centered_string("PAUSED");
