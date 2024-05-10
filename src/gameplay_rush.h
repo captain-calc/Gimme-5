@@ -53,6 +53,7 @@ class RushGameplay : public Gameplay
     void draw_game_screen_background() const;
     void draw_game_screen_foreground(IN word_string_t current_guess) const;
     void draw_guesses() const;
+    void draw_guess_list_scrollbar() const;
     void draw_win_animation() const;
     void draw_lose_animation() const;
     bool is_last_guess_correct() const;

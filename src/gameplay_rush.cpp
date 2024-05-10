@@ -153,12 +153,12 @@ void RushGameplay::play_random_word()
       input[num_letters] = '\0';
       partial_redraw = true;
     }
-    else if (Keypad::was_released_exclusive(kb_KeyUp))
+    else if (Keypad::is_down_repeating(kb_KeyUp))
     {
       scroll_guess_list_up();
       partial_redraw = true;
     }
-    else if (Keypad::was_released_exclusive(kb_KeyDown))
+    else if (Keypad::is_down_repeating(kb_KeyDown))
     {
       scroll_guess_list_down();
       partial_redraw = true;
@@ -258,6 +258,7 @@ void RushGameplay::draw_game_screen_foreground(
 ) const
 {
   draw_guesses();
+  draw_guess_list_scrollbar();
   draw_word_input(current_guess);
   return;
 }
@@ -295,6 +296,54 @@ void RushGameplay::draw_guesses() const
     origin.ypos += VERTICAL_SPACING;
   }
 
+  return;
+}
+
+
+void RushGameplay::draw_guess_list_scrollbar() const
+{
+  const uint8_t CONTAINER_HEIGHT = 170;
+  const uint8_t SCROLL_BAR_MAX_HEIGHT = CONTAINER_HEIGHT - 4;
+  const uint8_t SCROLL_BAR_NUM_UNITS = (
+    this->num_guesses >= this->NUM_VISIBLE_GUESSES
+    ? (this->num_guesses == this->MAX_NUM_GUESSES ? this->MAX_NUM_GUESSES : this->num_guesses + 1)
+    : this->NUM_VISIBLE_GUESSES
+  );
+  const uint8_t SCROLL_BAR_PIXELS_PER_UNIT = (
+    SCROLL_BAR_MAX_HEIGHT / SCROLL_BAR_NUM_UNITS
+  );
+  const uint8_t SCROLL_BAR_APPROX_MAX_HEIGHT = (
+    SCROLL_BAR_PIXELS_PER_UNIT * SCROLL_BAR_NUM_UNITS
+  );
+  const uint8_t SCROLL_BAR_HEIGHT = (
+    (
+      this->NUM_VISIBLE_GUESSES * SCROLL_BAR_PIXELS_PER_UNIT
+    ) + (
+      SCROLL_BAR_MAX_HEIGHT - SCROLL_BAR_APPROX_MAX_HEIGHT
+    )
+  );
+
+  DecoratedRectangle container;
+  DecoratedRectangle scroll_bar;
+
+  container.set_xpos((LCD_WIDTH / 2) + 60);
+  container.set_ypos(15);
+  container.set_width(8);
+  container.set_height(CONTAINER_HEIGHT);
+  container.set_color(BLACK);
+  container.set_border_radius(4);
+
+  scroll_bar.set_xpos(container.get_xpos() + 2);
+  scroll_bar.set_ypos(
+    container.get_ypos() + 2 + (scroll_index * SCROLL_BAR_PIXELS_PER_UNIT)
+  );
+  scroll_bar.set_width(4);
+  scroll_bar.set_height(SCROLL_BAR_HEIGHT);
+  scroll_bar.set_color(ORANGE);
+  scroll_bar.set_border_radius(2);
+
+  container.draw();
+  scroll_bar.draw();
   return;
 }
 
