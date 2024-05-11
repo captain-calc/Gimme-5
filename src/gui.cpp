@@ -782,6 +782,7 @@ void gui_DrawGameplayOption(IN char* title, IN point_t& origin)
 {
   Container container;
 
+  container.set_z_index(6);
   draw_gameplay_option(title, origin, container);
   return;
 }
