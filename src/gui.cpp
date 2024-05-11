@@ -495,7 +495,7 @@ InputField::InputField(IN uint8_t ypos, IN uint24_t width)
   rectangle.set_width(width);
   rectangle.set_height(12);
   rectangle.center_horizontally_on_screen();
-  rectangle.set_color(BLUE);
+  rectangle.set_color(BLACK);
   rectangle.set_border_radius(6);
   rectangle.make_inset();
   rectangle.set_z_index(1);
