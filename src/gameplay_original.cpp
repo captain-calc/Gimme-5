@@ -23,7 +23,95 @@ static uint8_t ascii_hex_pair_to_byte(IN char ascii_hex_pair[2]);
 
 
 // ============================================================================
-// PUBLIC FUNCTION DEFINITIONS
+// CLASS AlphabetTracker FUNCTION DECLARATIONS
+// ============================================================================
+
+
+AlphabetTracker::AlphabetTracker()
+{
+  initialize();
+  return;
+}
+
+
+void AlphabetTracker::initialize()
+{
+  memset(letters_not_in_target, '\0', 26);
+  return;
+}
+
+
+void AlphabetTracker::include_guess(
+  IN Word& guess, IN word_evaluation_t evaluation
+)
+{
+  for (uint8_t index = 0; index < WORD_LENGTH; index++)
+  {
+    if (evaluation[index] == POSITION_AND_LETTER_INCORRECT)
+    {
+      letters_not_in_target[guess[index] - 'A'] = guess[index];
+    }
+  }
+
+  return;
+}
+
+
+void AlphabetTracker::draw() const
+{
+  const uint24_t HORIZONTAL_SPACING = 8;
+  const uint24_t LETTER_WIDTH = 8;
+  const uint8_t LETTERS_PER_LINE = 13;
+  const uint24_t LINE_WIDTH = (
+    LETTERS_PER_LINE * (LETTER_WIDTH + HORIZONTAL_SPACING)
+  ) - HORIZONTAL_SPACING;
+
+  uint24_t xpos = (LCD_WIDTH - LINE_WIDTH) / 2;
+  uint8_t ypos = 160;
+  char letter;
+
+  DecoratedRectangle rectangle;
+  GuiText text;
+
+  rectangle.set_ypos(ypos - 5);
+  rectangle.set_width(LINE_WIDTH + 30);
+  rectangle.set_height((2 * GFX_DEFAULT_FONT_HEIGHT) + 6 + 10);
+  rectangle.center_horizontally_on_screen();
+  rectangle.set_color(DARK_MED_BLUE);
+  rectangle.set_border_color(WHITE);
+  rectangle.set_border_radius(6);
+  rectangle.set_border_thickness(1);
+  rectangle.draw();
+
+  text.set_font(GuiText::DEFAULT);
+  text.set_ypos(ypos);
+
+  for (uint8_t index = 0; index < 26; index++)
+  {
+    if (index == LETTERS_PER_LINE)
+    {
+      xpos = (LCD_WIDTH - LINE_WIDTH) / 2;
+      ypos += GFX_DEFAULT_FONT_HEIGHT + 6;
+      text.set_ypos(ypos);
+    }
+
+    letter = 'A' + index;
+
+    if (letters_not_in_target[index] != letter)
+    {
+      text.set_xpos(xpos);
+      text.draw_character(letter);
+    }
+
+    xpos += (LETTER_WIDTH + HORIZONTAL_SPACING);
+  }
+
+  return;
+}
+
+
+// ============================================================================
+// CLASS OriginalGameplay FUNCTION DEFINITIONS
 // ============================================================================
 
 
@@ -416,7 +504,7 @@ void OriginalGameplay::word_not_in_dictionary_notification() const
 void OriginalGameplay::play(IN Word& target_word)
 {
   const pause_menu_code_t SHOW_WORD = OPTION_TWO;
-  
+
   Word guess;
   word_string_t input = { '\0' };
   char letter;

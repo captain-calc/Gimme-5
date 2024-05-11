@@ -6,7 +6,9 @@
 #define HELP_APPVAR ("GIMME5S")
 
 
-// VERSION HISTORY FOR IN-GAME HELP CLASS
+// ============================================================================
+// VERSION HISTORY FOR InGameHelp CLASS
+// ============================================================================
 //
 // Version 0 (Pre-Release Beta)
 //
@@ -41,9 +43,13 @@
 //    };
 //
 //   The same parser can be used for for v0, v1, and v2 because each new
-// version simply reduced the number of unused bits in
-// `shown_help_flags`.
+// version simply reduced the number of unused bits in `shown_help_flags`.
 //
+
+
+// ============================================================================
+// DEFINITIONS
+// ============================================================================
 
 
 typedef struct
@@ -51,6 +57,11 @@ typedef struct
   uint8_t version;
   uint8_t shown_help_flags;
 } appvar_data_t;
+
+
+// ============================================================================
+// CLASS InGameHelp FUNCTION DEFINITIONS
+// ============================================================================
 
 
 InGameHelp InGameHelp::instance;

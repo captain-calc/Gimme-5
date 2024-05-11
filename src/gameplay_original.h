@@ -5,6 +5,24 @@
 #include "gameplay.h"
 
 
+// ============================================================================
+// CLASS DECLARATIONS
+// ============================================================================
+
+
+class AlphabetTracker
+{
+  public:
+    AlphabetTracker();
+    void initialize();
+    void include_guess(IN Word& guess, IN word_evaluation_t evaluation);
+    void draw() const;
+
+  private:
+    char letters_not_in_target[26];
+};
+
+
 class OriginalGameplay : public Gameplay
 {
   public:

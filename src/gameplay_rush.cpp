@@ -15,7 +15,7 @@
 
 
 // ============================================================================
-// PUBLIC FUNCTION DEFINITIONS
+// CLASS Timer FUNCTION DEFINITIONS
 // ============================================================================
 
 
@@ -91,6 +91,11 @@ void Timer::blit() const
   );
   return;
 }
+
+
+// ============================================================================
+// CLASS RushGameplay FUNCTION DEFINITIONS
+// ============================================================================
 
 
 RushGameplay::RushGameplay(): Gameplay(ID)
@@ -308,7 +313,11 @@ void RushGameplay::draw_guess_list_scrollbar() const
   const uint8_t SCROLL_BAR_MAX_HEIGHT = CONTAINER_HEIGHT - 4;
   const uint8_t SCROLL_BAR_NUM_UNITS = (
     this->num_guesses >= this->NUM_VISIBLE_GUESSES
-    ? (this->num_guesses == this->MAX_NUM_GUESSES ? this->MAX_NUM_GUESSES : this->num_guesses + 1)
+    ? (
+      this->num_guesses == this->MAX_NUM_GUESSES
+      ? this->MAX_NUM_GUESSES
+      : this->num_guesses + 1
+    )
     : this->NUM_VISIBLE_GUESSES
   );
   const uint8_t SCROLL_BAR_PIXELS_PER_UNIT = (

@@ -6,6 +6,12 @@
 
 #include "typehints.h"
 
+
+// ============================================================================
+// DEFINIIONS
+// ============================================================================
+
+
 #define WORD_LENGTH (5)
 typedef char word_string_t[WORD_LENGTH];
 
@@ -18,6 +24,11 @@ enum evaluation_code_t : uint8_t
 };
 
 typedef evaluation_code_t word_evaluation_t[WORD_LENGTH];
+
+
+// ============================================================================
+// CLASS DECLARATIONS
+// ============================================================================
 
 
 class Word
@@ -62,6 +73,11 @@ class WordPattern
   private:
     word_string_t pattern_string;
 };
+
+
+// ============================================================================
+// PUBLIC FUNCTION DECLARATIONS
+// ============================================================================
 
 
 void word_EvaluateFirstWordBySecondWord(

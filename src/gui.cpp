@@ -43,7 +43,7 @@ static void draw_gameplay_option(
 
 
 // ============================================================================
-// PUBLIC FUNCTION DEFINITIONS
+// CLASS GuiText FUNCTION DEFINITIONS
 // ============================================================================
 
 
@@ -221,6 +221,11 @@ void GuiText::set_ypos(IN uint8_t ypos)
 }
 
 
+// ============================================================================
+// CLASS Recntangle FUNCTION DEFINITIONS
+// ============================================================================
+
+
 Rectangle::Rectangle()
 {
   rectangle.xpos = 0;
@@ -339,6 +344,11 @@ void Rectangle::set_color(IN uint8_t color)
   this->color = color;
   return;
 }
+
+
+// ============================================================================
+// CLASS DecoratedRectangle FUNCTION DEFINITIONS
+// ============================================================================
 
 
 DecoratedRectangle::DecoratedRectangle()
@@ -478,6 +488,11 @@ void DecoratedRectangle::shrink_towards_center_by_num_pixels(
 }
 
 
+// ============================================================================
+// CLASS Container FUNCTION DEFINITIONS
+// ============================================================================
+
+
 Container::Container()
 {
   this->set_color(DARK_MED_BLUE);
@@ -487,6 +502,11 @@ Container::Container()
   this->set_z_index(3);
   return;
 }
+
+
+// ============================================================================
+// CLASS InputField FUNCTION DEFINITIONS
+// ============================================================================
 
 
 InputField::InputField(IN uint8_t ypos, IN uint24_t width)
@@ -513,6 +533,11 @@ void InputField::draw_input(IN char* input)
   text.draw_centered_string(input);
   return;
 }
+
+
+// ============================================================================
+// CLASS Notification FUNCTION DEFINITIONS
+// ============================================================================
 
 
 Notification::Notification(IN char* message)
@@ -594,6 +619,11 @@ void Notification::blit()
 
   return;
 }
+
+
+// ============================================================================
+// PUBLIC FUNCTION DEFINITIONS
+// ============================================================================
 
 
 void gui_StartGraphics()

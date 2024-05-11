@@ -6,6 +6,11 @@
 #include "dictionary.h"
 
 
+// ============================================================================
+// PUBLIC FUNCTION DEFINITIONS
+// ============================================================================
+
+
 bool dictionary_IsAppvarPresent()
 {
   ti_var_t slot;
@@ -42,6 +47,11 @@ bool dictionary_ArchiveAppvar()
 
   return is_archived;
 }
+
+
+// ============================================================================
+// CLASS Dictionary FUNCTION DEFINITIONS
+// ============================================================================
 
 
 Dictionary::Dictionary()

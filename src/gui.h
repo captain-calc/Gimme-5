@@ -5,6 +5,11 @@
 #include "typehints.h"
 
 
+// ============================================================================
+// DEFINITIONS
+// ============================================================================
+
+
 #define TRANSPARENT    (0)
 #define DARK_BLUE      (1)
 #define DARK_MED_BLUE  (2)
@@ -36,6 +41,11 @@ typedef struct
   uint24_t width;
   uint8_t height;
 } rectangle_t;
+
+
+// ============================================================================
+// CLASS DECLARATIONS
+// ============================================================================
 
 
 class GuiText
@@ -167,6 +177,11 @@ class Notification
     rectangle_t container;
     uint24_t animation_index;
 };
+
+
+// ============================================================================
+// PUBLIC FUNCTION DECLARATIONS
+// ============================================================================
 
 
 void gui_StartGraphics();

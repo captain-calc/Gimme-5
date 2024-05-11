@@ -114,7 +114,7 @@ static void load_random_anagram_into_word(OUT Word& word);
 
 
 // ============================================================================
-// CLASS FUNCTION DEFINITIONS
+// CLASS AnagramGameplay FUNCTION DEFINITIONS
 // ============================================================================
 
 

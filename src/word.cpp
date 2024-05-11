@@ -4,6 +4,11 @@
 #include "word.h"
 
 
+// ============================================================================
+// CLASS Word FUNCTION DEFINITIONS
+// ============================================================================
+
+
 Word::Word()
 {
   memset(letters, '\0', WORD_LENGTH);
@@ -157,6 +162,11 @@ void Word::generate_letter_signature(OUT word_string_t signature) const
 }
 
 
+// ============================================================================
+// CLASS WordPattern FUNCTION DEFINITIONS
+// ============================================================================
+
+
 WordPattern::WordPattern()
 {
   word_string_t default_pattern_string;
@@ -228,6 +238,11 @@ bool WordPattern::matches_word(IN Word& word) const
 
   return true;
 }
+
+
+// ============================================================================
+// PUBLIC FUNCTION DEFINITIONS
+// ============================================================================
 
 
 void word_EvaluateFirstWordBySecondWord(

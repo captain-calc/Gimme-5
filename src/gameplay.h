@@ -9,6 +9,11 @@
 #include "word.h"
 
 
+// ============================================================================
+// DEFINITIONS
+// ============================================================================
+
+
 enum pause_menu_code_t : uint8_t
 {
   NO_DECISION = 0,
@@ -18,17 +23,9 @@ enum pause_menu_code_t : uint8_t
 };
 
 
-class AlphabetTracker
-{
-  public:
-    AlphabetTracker();
-    void initialize();
-    void include_guess(IN Word& guess, IN word_evaluation_t evaluation);
-    void draw() const;
-
-  private:
-    char letters_not_in_target[26];
-};
+// ============================================================================
+// CLASS DECLARATIONS
+// ============================================================================
 
 
 class Gameplay
