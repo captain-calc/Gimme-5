@@ -422,8 +422,8 @@ static void invalid_code_notification()
 
 static void show_word_code_entry_menu_help()
 {
-  const uint8_t NUM_STRINGS = 15;
-  const char* STRINGS[NUM_STRINGS] = {
+  const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 11;
+  const char* FIRST_PAGE_STRINGS[NUM_STRINGS_ON_FIRST_PAGE] = {
     "In this menu, you can enter word codes",
     "to play specific words in Original mode.",
     "",
@@ -434,22 +434,73 @@ static void show_word_code_entry_menu_help()
     "",
     "Use the numeric keypad and the buttons",
     "associated with the green A-F letters to",
-    "enter the 12-character word code.",
+    "enter the 12-character word code."
+  };
+  const uint8_t NUM_STRINGS_ON_SECOND_PAGE = 11;
+  const char* SECOND_PAGE_STRINGS[NUM_STRINGS_ON_SECOND_PAGE] = {
+    "Troubleshooting:",
     "",
     "If you get an \"Invalid code\" error,",
     "verify that you have entered the code",
-    "correctly."
+    "correctly.",
+    "",
+    "Newer versions of this program have slightly",
+    "different dictionaries because words are",
+    "added or removed almost every release.",
+    "Therefore, some codes may not work between",
+    "different versions."
   };
+   const uint8_t NUM_STRINGS_ON_THIRD_PAGE = 4;
+  const char* THIRD_PAGE_STRINGS[NUM_STRINGS_ON_THIRD_PAGE] = {
+    "If you share codes with friends, it is",
+    "recommended that everyone use the same",
+    "version. Version info can be found in the",
+    "main menu help screen."
+  };
+  const uint8_t NUM_PAGES = 3;
 
-  gui_DrawHelpScreen(STRINGS, NUM_STRINGS);
-  gui_TransitionIn();
+  bool transition_in = true;
+  uint8_t page_num = 1;
 
   while (true)
   {
     Keypad::update_state();
 
+    if (Keypad::is_down_repeating(kb_KeyLeft) && page_num > 1)
+      page_num--;
+
+    if (Keypad::is_down_repeating(kb_KeyRight) && page_num < NUM_PAGES)
+      page_num++;
+
     if (Keypad::was_released_exclusive(kb_KeyClear))
       break;
+
+    switch (page_num)
+    {
+      case 1:
+        gui_DrawHelpScreen(FIRST_PAGE_STRINGS, NUM_STRINGS_ON_FIRST_PAGE);
+        break;
+
+      case 2:
+        gui_DrawHelpScreen(SECOND_PAGE_STRINGS, NUM_STRINGS_ON_SECOND_PAGE);
+        break;
+
+      case 3:
+        gui_DrawHelpScreen(THIRD_PAGE_STRINGS, NUM_STRINGS_ON_THIRD_PAGE);
+        break;
+    };
+
+    gui_DrawPageNumberIndicator(NUM_PAGES, page_num);
+
+    if (transition_in)
+    {
+      gui_TransitionIn();
+      transition_in = false;
+    }
+    else
+    {
+      gfx_BlitBuffer();
+    }
   }
 
   gui_TransitionOut();
