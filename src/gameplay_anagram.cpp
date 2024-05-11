@@ -12,199 +12,110 @@
 #include "keypad.h"
 
 
-static const char* ANAGRAM_LIST[163] = {
-  "BASTE",
-  "BATES",
-  "BEAST",
-  "BEATS",
-  "BETAS",
-  "BALER",
-  "BLARE",
-  "ALTER",
-  "LATER",
-  "ANGLE",
-  "GLEAN",
-  "GROAN",
-  "ORGAN",
-  "COAST",
-  "COATS",
-  "TACOS",
-  "NAPES",
-  "NEAPS",
-  "PANES",
-  "BLASE",
-  "SABLE",
-  "BEARD",
-  "BREAD",
-  "ROBES",
-  "SOBER",
-  "CARED",
-  "CEDAR",
-  "RACED",
-  "LACKS",
-  "SLACK",
-  "CATER",
-  "CRATE",
-  "REACT",
-  "TRACE",
-  "CLASP",
-  "SCALP",
-  "COLDS",
-  "SCOLD",
-  "CORED",
-  "CREDO",
-  "DECOR",
-  "CORSE",
-  "SCORE",
-  "LUCRE",
-  "ULCER",
-  "CUTER",
-  "TRUCE",
-  "DIETS",
-  "EDITS",
-  "TIDES",
-  "PADRE",
-  "PARED",
-  "RIDES",
-  "SIRED",
-  "NARES",
-  "NEARS",
-  "SNARE",
-  "HATER",
-  "HEART",
-  "FEARS",
-  "SAFER",
-  "FRIES",
-  "FRISE",
-  "SERIF",
-  "FRERE",
-  "REFER",
-  "LAGER",
-  "LARGE",
-  "REGAL",
-  "HEARS",
-  "SHARE",
-  "SHEAR",
-  "PHASE",
-  "SHAPE",
-  "LIDOS",
-  "SOLID",
-  "STILE",
-  "TILES",
-  "LINKS",
-  "SLINK",
-  "LIARS",
-  "RAILS",
-  "PALMS",
-  "PSALM",
-  "LEAPS",
-  "PALES",
-  "PLEAS",
-  "SALTS",
-  "SLATS",
-  "SLATE",
-  "STALE",
-  "STEAL",
-  "TALES",
-  "TEALS",
-  "STILL",
-  "TILLS",
-  "MILES",
-  "SLIME",
-  "SMILE",
-  "SILTS",
-  "SLITS",
-  "POOLS",
-  "SPOOL",
-  "STOOL",
-  "TOOLS",
-  "SOLVE",
-  "VOLES",
-  "MANSE",
-  "MEANS",
-  "NAMES",
-  "MEATS",
-  "STEAM",
-  "TAMES",
-  "TEAMS",
-  "MITER",
-  "MITRE",
-  "REMIT",
-  "TIMER",
-  "ONSET",
-  "STONE",
-  "TONES",
-  "TROVE",
-  "VOTER",
-  "PLAYS",
-  "SPLAY",
-  "PENAL",
-  "PLANE",
-  "PEARS",
-  "REAPS",
-  "SPARE",
-  "SPEAR",
-  "STRAP",
-  "TARPS",
-  "TRAPS",
-  "PRATE",
-  "TAPER",
-  "PLATE",
-  "PLEAT",
-  "PINTO",
-  "PITON",
-  "POINT",
-  "POSER",
-  "PROSE",
-  "ROPES",
-  "SPORE",
-  "SPOTS",
-  "STOPS",
-  "TRADE",
-  "TREAD",
-  "STEER",
-  "TERSE",
-  "TREES",
-  "TIERS",
-  "TIRES",
-  "TRIES",
-  "SATIN",
-  "STAIN",
-  "SEVER",
-  "VEERS",
-  "VERSE",
-  "STAKE",
-  "STEAK",
-  "TAKES"
+
+// ============================================================================
+// DEFINITIONS
+// ============================================================================
+
+
+#define NUM_ANAGRAMS (163)
+static const word_string_t ANAGRAM_LIST[NUM_ANAGRAMS] = {
+  {'B', 'A', 'S', 'T', 'E', }, {'B', 'A', 'T', 'E', 'S', },
+  {'B', 'E', 'A', 'S', 'T', }, {'B', 'E', 'A', 'T', 'S', },
+  {'B', 'E', 'T', 'A', 'S', }, {'B', 'A', 'L', 'E', 'R', },
+  {'B', 'L', 'A', 'R', 'E', }, {'A', 'L', 'T', 'E', 'R', },
+  {'L', 'A', 'T', 'E', 'R', }, {'A', 'N', 'G', 'L', 'E', },
+  {'G', 'L', 'E', 'A', 'N', }, {'G', 'R', 'O', 'A', 'N', },
+  {'O', 'R', 'G', 'A', 'N', }, {'C', 'O', 'A', 'S', 'T', },
+  {'C', 'O', 'A', 'T', 'S', }, {'T', 'A', 'C', 'O', 'S', },
+  {'N', 'A', 'P', 'E', 'S', }, {'N', 'E', 'A', 'P', 'S', },
+  {'P', 'A', 'N', 'E', 'S', }, {'B', 'L', 'A', 'S', 'E', },
+  {'S', 'A', 'B', 'L', 'E', }, {'B', 'E', 'A', 'R', 'D', },
+  {'B', 'R', 'E', 'A', 'D', }, {'R', 'O', 'B', 'E', 'S', },
+  {'S', 'O', 'B', 'E', 'R', }, {'C', 'A', 'R', 'E', 'D', },
+  {'C', 'E', 'D', 'A', 'R', }, {'R', 'A', 'C', 'E', 'D', },
+  {'L', 'A', 'C', 'K', 'S', }, {'S', 'L', 'A', 'C', 'K', },
+  {'C', 'A', 'T', 'E', 'R', }, {'C', 'R', 'A', 'T', 'E', },
+  {'R', 'E', 'A', 'C', 'T', }, {'T', 'R', 'A', 'C', 'E', },
+  {'C', 'L', 'A', 'S', 'P', }, {'S', 'C', 'A', 'L', 'P', },
+  {'C', 'O', 'L', 'D', 'S', }, {'S', 'C', 'O', 'L', 'D', },
+  {'C', 'O', 'R', 'E', 'D', }, {'C', 'R', 'E', 'D', 'O', },
+  {'D', 'E', 'C', 'O', 'R', }, {'C', 'O', 'R', 'S', 'E', },
+  {'S', 'C', 'O', 'R', 'E', }, {'L', 'U', 'C', 'R', 'E', },
+  {'U', 'L', 'C', 'E', 'R', }, {'C', 'U', 'T', 'E', 'R', },
+  {'T', 'R', 'U', 'C', 'E', }, {'D', 'I', 'E', 'T', 'S', },
+  {'E', 'D', 'I', 'T', 'S', }, {'T', 'I', 'D', 'E', 'S', },
+  {'P', 'A', 'D', 'R', 'E', }, {'P', 'A', 'R', 'E', 'D', },
+  {'R', 'I', 'D', 'E', 'S', }, {'S', 'I', 'R', 'E', 'D', },
+  {'N', 'A', 'R', 'E', 'S', }, {'N', 'E', 'A', 'R', 'S', },
+  {'S', 'N', 'A', 'R', 'E', }, {'H', 'A', 'T', 'E', 'R', },
+  {'H', 'E', 'A', 'R', 'T', }, {'F', 'E', 'A', 'R', 'S', },
+  {'S', 'A', 'F', 'E', 'R', }, {'F', 'R', 'I', 'E', 'S', },
+  {'F', 'R', 'I', 'S', 'E', }, {'S', 'E', 'R', 'I', 'F', },
+  {'F', 'R', 'E', 'R', 'E', }, {'R', 'E', 'F', 'E', 'R', },
+  {'L', 'A', 'G', 'E', 'R', }, {'L', 'A', 'R', 'G', 'E', },
+  {'R', 'E', 'G', 'A', 'L', }, {'H', 'E', 'A', 'R', 'S', },
+  {'S', 'H', 'A', 'R', 'E', }, {'S', 'H', 'E', 'A', 'R', },
+  {'P', 'H', 'A', 'S', 'E', }, {'S', 'H', 'A', 'P', 'E', },
+  {'L', 'I', 'D', 'O', 'S', }, {'S', 'O', 'L', 'I', 'D', },
+  {'S', 'T', 'I', 'L', 'E', }, {'T', 'I', 'L', 'E', 'S', },
+  {'L', 'I', 'N', 'K', 'S', }, {'S', 'L', 'I', 'N', 'K', },
+  {'L', 'I', 'A', 'R', 'S', }, {'R', 'A', 'I', 'L', 'S', },
+  {'P', 'A', 'L', 'M', 'S', }, {'P', 'S', 'A', 'L', 'M', },
+  {'L', 'E', 'A', 'P', 'S', }, {'P', 'A', 'L', 'E', 'S', },
+  {'P', 'L', 'E', 'A', 'S', }, {'S', 'A', 'L', 'T', 'S', },
+  {'S', 'L', 'A', 'T', 'S', }, {'S', 'L', 'A', 'T', 'E', },
+  {'S', 'T', 'A', 'L', 'E', }, {'S', 'T', 'E', 'A', 'L', },
+  {'T', 'A', 'L', 'E', 'S', }, {'T', 'E', 'A', 'L', 'S', },
+  {'S', 'T', 'I', 'L', 'L', }, {'T', 'I', 'L', 'L', 'S', },
+  {'M', 'I', 'L', 'E', 'S', }, {'S', 'L', 'I', 'M', 'E', },
+  {'S', 'M', 'I', 'L', 'E', }, {'S', 'I', 'L', 'T', 'S', },
+  {'S', 'L', 'I', 'T', 'S', }, {'P', 'O', 'O', 'L', 'S', },
+  {'S', 'P', 'O', 'O', 'L', }, {'S', 'T', 'O', 'O', 'L', },
+  {'T', 'O', 'O', 'L', 'S', }, {'S', 'O', 'L', 'V', 'E', },
+  {'V', 'O', 'L', 'E', 'S', }, {'M', 'A', 'N', 'S', 'E', },
+  {'M', 'E', 'A', 'N', 'S', }, {'N', 'A', 'M', 'E', 'S', },
+  {'M', 'E', 'A', 'T', 'S', }, {'S', 'T', 'E', 'A', 'M', },
+  {'T', 'A', 'M', 'E', 'S', }, {'T', 'E', 'A', 'M', 'S', },
+  {'M', 'I', 'T', 'E', 'R', }, {'M', 'I', 'T', 'R', 'E', },
+  {'R', 'E', 'M', 'I', 'T', }, {'T', 'I', 'M', 'E', 'R', },
+  {'O', 'N', 'S', 'E', 'T', }, {'S', 'T', 'O', 'N', 'E', },
+  {'T', 'O', 'N', 'E', 'S', }, {'T', 'R', 'O', 'V', 'E', },
+  {'V', 'O', 'T', 'E', 'R', }, {'P', 'L', 'A', 'Y', 'S', },
+  {'S', 'P', 'L', 'A', 'Y', }, {'P', 'E', 'N', 'A', 'L', },
+  {'P', 'L', 'A', 'N', 'E', }, {'P', 'E', 'A', 'R', 'S', },
+  {'R', 'E', 'A', 'P', 'S', }, {'S', 'P', 'A', 'R', 'E', },
+  {'S', 'P', 'E', 'A', 'R', }, {'S', 'T', 'R', 'A', 'P', },
+  {'T', 'A', 'R', 'P', 'S', }, {'T', 'R', 'A', 'P', 'S', },
+  {'P', 'R', 'A', 'T', 'E', }, {'T', 'A', 'P', 'E', 'R', },
+  {'P', 'L', 'A', 'T', 'E', }, {'P', 'L', 'E', 'A', 'T', },
+  {'P', 'I', 'N', 'T', 'O', }, {'P', 'I', 'T', 'O', 'N', },
+  {'P', 'O', 'I', 'N', 'T', }, {'P', 'O', 'S', 'E', 'R', },
+  {'P', 'R', 'O', 'S', 'E', }, {'R', 'O', 'P', 'E', 'S', },
+  {'S', 'P', 'O', 'R', 'E', }, {'S', 'P', 'O', 'T', 'S', },
+  {'S', 'T', 'O', 'P', 'S', }, {'T', 'R', 'A', 'D', 'E', },
+  {'T', 'R', 'E', 'A', 'D', }, {'S', 'T', 'E', 'E', 'R', },
+  {'T', 'E', 'R', 'S', 'E', }, {'T', 'R', 'E', 'E', 'S', },
+  {'T', 'I', 'E', 'R', 'S', }, {'T', 'I', 'R', 'E', 'S', },
+  {'T', 'R', 'I', 'E', 'S', }, {'S', 'A', 'T', 'I', 'N', },
+  {'S', 'T', 'A', 'I', 'N', }, {'S', 'E', 'V', 'E', 'R', },
+  {'V', 'E', 'E', 'R', 'S', }, {'V', 'E', 'R', 'S', 'E', },
+  {'S', 'T', 'A', 'K', 'E', }, {'S', 'T', 'E', 'A', 'K', },
+  {'T', 'A', 'K', 'E', 'S', }
 };
 
 
-AnagramCache::AnagramCache()
-{
-  this->num_anagrams = 163;
-
-  for (uint8_t index = 0; index < this->MAX_NUM_ANAGRAMS; index++)
-  {
-    memcpy(
-      this->anagram_list[index], ANAGRAM_LIST[index], sizeof(word_string_t)
-    );
-  }
-
-  return;
-}
+// ============================================================================
+// STATIC FUNCTION DECLARATIONS
+// ============================================================================
 
 
-void AnagramCache::load_random_anagram_into_word(OUT Word& word) const
-{
-  word = this->anagram_list[rand() % this->MAX_NUM_ANAGRAMS];
-  return;
-}
+static void load_random_anagram_into_word(OUT Word& word);
 
 
-void AnagramCache::load_cache()
-{
-  return;
-}
+// ============================================================================
+// CLASS FUNCTION DEFINITIONS
+// ============================================================================
 
 
 AnagramGameplay::AnagramGameplay(): Gameplay(ID)
@@ -227,7 +138,6 @@ void AnagramGameplay::play_random_word()
 
   gui_TransitionOut();
   reset_guesses();
-  anagram_cache.load_cache();
   pick_next_target_word();
 
   if (InGameHelp::must_show_help_for(InGameHelp::ANAGRAM_GAMEPLAY))
@@ -624,7 +534,7 @@ void AnagramGameplay::pick_next_target_word()
   Word next_target;
 
   do {
-    anagram_cache.load_random_anagram_into_word(next_target);
+    load_random_anagram_into_word(next_target);
   } while (next_target == this->target);
 
   this->target = next_target;
@@ -659,7 +569,6 @@ void AnagramGameplay::results_screen()
   );
   GuiText text;
 
-  gui_TransitionOut();
   draw_game_screen_background();
 
   text.set_font(GuiText::DOUBLE_SIZE_WITH_SHADOW);
@@ -690,7 +599,20 @@ void AnagramGameplay::results_screen()
     origin.xpos += spr_character_slot->width + HORIZONTAL_SPACING;
   }
 
+  delay(500);
   gui_TransitionIn();
   Keypad::block_until_any_key_released();
+  return;
+}
+
+
+// ============================================================================
+// STATIC FUNCTION DEFINITIONS
+// ============================================================================
+
+
+static void load_random_anagram_into_word(OUT Word& word)
+{
+  word = ANAGRAM_LIST[rand() % NUM_ANAGRAMS];
   return;
 }

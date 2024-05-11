@@ -5,24 +5,6 @@
 #include "gameplay.h"
 
 
-class AnagramCache
-{
-  public:
-    AnagramCache();
-
-    void load_random_anagram_into_word(OUT Word& word) const;
-
-    void load_cache();
-
-  private:
-    static const uint8_t MAX_NUM_ANAGRAMS = 163;
-
-    Dictionary dictionary;
-    word_string_t anagram_list[MAX_NUM_ANAGRAMS];
-    uint8_t num_anagrams;
-};
-
-
 class AnagramGameplay : public Gameplay
 {
   public:
@@ -33,7 +15,6 @@ class AnagramGameplay : public Gameplay
     static const uint8_t ID = 2;
     static const uint8_t MAX_NUM_ROUNDS = 5;
 
-    AnagramCache anagram_cache;
     Dictionary dictionary;
     Word target;
     Word guesses[MAX_NUM_ROUNDS];
