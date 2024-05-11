@@ -29,6 +29,7 @@ class AnagramGameplay : public Gameplay
     bool is_guess_correct() const;
     bool is_guess_incorrect() const;
     bool are_all_rounds_complete() const;
+    pause_menu_code_t pause_menu() const;
     void show_help_screen() const;
 
     void reset_guesses();

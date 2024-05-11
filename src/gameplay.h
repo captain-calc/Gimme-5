@@ -12,9 +12,9 @@
 enum pause_menu_code_t : uint8_t
 {
   NO_DECISION = 0,
-  RESUME_GAME = (1 << 0),
-  QUIT_GAME   = (1 << 1),
-  SHOW_WORD   = (1 << 2)
+  OPTION_ONE,
+  OPTION_TWO,
+  QUIT_GAME
 };
 
 
@@ -50,7 +50,9 @@ class Gameplay
     void draw_evaluated_guess(
       IN Word& word, IN word_evaluation_t evaluation, IN point_t& origin
     ) const;
-    pause_menu_code_t pause_menu() const;
+    pause_menu_code_t pause_menu(
+      IN char** button_titles, IN uint8_t num_options
+    ) const;
 
   private:
     uint8_t id;

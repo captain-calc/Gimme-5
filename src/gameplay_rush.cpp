@@ -101,6 +101,8 @@ RushGameplay::RushGameplay(): Gameplay(ID)
 
 void RushGameplay::play_random_word()
 {
+  const pause_menu_code_t SHOW_WORD = OPTION_TWO;
+
   Word guess;
   word_string_t input = { '\0' };
   char letter;
@@ -445,6 +447,15 @@ bool RushGameplay::does_word_match_excluded_patterns(IN Word& word) const
   }
 
   return false;
+}
+
+
+pause_menu_code_t RushGameplay::pause_menu() const
+{
+  const uint8_t NUM_OPTIONS = 2;
+  const char* BUTTON_TITLES[NUM_OPTIONS] = {"Resume", "Show Word"};
+
+  return Gameplay::pause_menu(BUTTON_TITLES, NUM_OPTIONS);
 }
 
 

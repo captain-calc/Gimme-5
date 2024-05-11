@@ -126,6 +126,8 @@ AnagramGameplay::AnagramGameplay(): Gameplay(ID)
 
 void AnagramGameplay::play_random_word()
 {
+  const pause_menu_code_t NEXT_WORD = OPTION_TWO;
+
   Word guess;
   word_string_t input = { '\0' };
   char letter;
@@ -161,7 +163,7 @@ void AnagramGameplay::play_random_word()
       if (pause_menu_decision == QUIT_GAME)
         break;
 
-      if (pause_menu_decision == SHOW_WORD)
+      if (pause_menu_decision == NEXT_WORD)
         guess_submitted = true;
 
       pause_menu_decision = NO_DECISION;
@@ -421,6 +423,15 @@ bool AnagramGameplay::is_guess_incorrect() const
 bool AnagramGameplay::are_all_rounds_complete() const
 {
   return (this->num_rounds_completed == this->MAX_NUM_ROUNDS);
+}
+
+
+pause_menu_code_t AnagramGameplay::pause_menu() const
+{
+  const uint8_t NUM_OPTIONS = 2;
+  const char* BUTTON_TITLES[NUM_OPTIONS] = {"Resume", "Next Word"};
+
+  return Gameplay::pause_menu(BUTTON_TITLES, NUM_OPTIONS);
 }
 
 

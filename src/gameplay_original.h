@@ -48,6 +48,7 @@ class OriginalGameplay : public Gameplay
     bool are_all_guesses_used() const;
     void generate_code(OUT char* code) const;
     void decrypt_word_code_into_word(IN char* code, OUT Word& word) const;
+    pause_menu_code_t pause_menu() const;
     void show_help_screen() const;
     void word_not_in_dictionary_notification() const;
 

@@ -290,6 +290,15 @@ CCDBG_PUTS(word_string_buffer);
 }
 
 
+pause_menu_code_t OriginalGameplay::pause_menu() const
+{
+  const uint8_t NUM_OPTIONS = 2;
+  const char* BUTTON_TITLES[NUM_OPTIONS] = {"Resume", "Show Word"};
+
+  return Gameplay::pause_menu(BUTTON_TITLES, NUM_OPTIONS);
+}
+
+
 void OriginalGameplay::show_help_screen() const
 {
   const uint8_t NUM_STRINGS_ON_FIRST_PAGE = 9;
@@ -406,6 +415,8 @@ void OriginalGameplay::word_not_in_dictionary_notification() const
 
 void OriginalGameplay::play(IN Word& target_word)
 {
+  const pause_menu_code_t SHOW_WORD = OPTION_TWO;
+  
   Word guess;
   word_string_t input = { '\0' };
   char letter;

@@ -245,11 +245,10 @@ void Gameplay::draw_evaluated_guess(
 }
 
 
-pause_menu_code_t Gameplay::pause_menu() const
+pause_menu_code_t Gameplay::pause_menu(
+  IN char** button_titles, IN uint8_t num_options
+) const
 {
-  const uint8_t NUM_OPTIONS = 2;
-  const char* BUTTON_TITLES[NUM_OPTIONS] = { "Resume", "Show Word" };
-
   GuiText text;
   Container container;
   Container header;
@@ -287,12 +286,12 @@ pause_menu_code_t Gameplay::pause_menu() const
   {
     button_ypos = container.get_ypos() + 45;
 
-    for (uint8_t index = 0; index < NUM_OPTIONS; index++)
+    for (uint8_t index = 0; index < num_options; index++)
     {
       if (option_index == index)
-        gui_DrawButtonSelected(BUTTON_TITLES[index], button_ypos);
+        gui_DrawButtonSelected(button_titles[index], button_ypos);
       else
-        gui_DrawButton(BUTTON_TITLES[index], button_ypos);
+        gui_DrawButton(button_titles[index], button_ypos);
 
       button_ypos += 35;
     }
@@ -321,11 +320,11 @@ pause_menu_code_t Gameplay::pause_menu() const
       if (option_index > 0)
         option_index--;
       else
-        option_index = NUM_OPTIONS - 1;
+        option_index = num_options - 1;
     }
     else if (Keypad::is_down_repeating(kb_KeyDown))
     {
-      if (option_index + 1 < NUM_OPTIONS)
+      if (option_index + 1 < num_options)
         option_index++;
       else
         option_index = 0;
@@ -343,14 +342,7 @@ pause_menu_code_t Gameplay::pause_menu() const
       || Keypad::was_released_exclusive(kb_KeyEnter)
     )
     {
-      if (option_index == 0)
-      {
-        return RESUME_GAME;
-      }
-      else if (option_index == 1)
-      {
-        return SHOW_WORD;
-      }
+      return (pause_menu_code_t)(option_index + 1);
     }
   }
 
