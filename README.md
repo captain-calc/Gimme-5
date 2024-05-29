@@ -29,7 +29,8 @@ If you have found a bug, please PM my Cemetech account or post in the program's 
 
 | Version | Description
 | ------- | -----------
-| 1.0.0 | First Release
+| 1.0.0 | First release.
 | 1.0.1 | Removed some obscure words from the dictionary. Added source code to release. Simplified dictionary build process. Added Gameplay and Building sections to README.
 | All Stars Pre-Release Beta | Re-branded program as Gimme 5: All Stars. Complete rewrite.
 | All Stars Pre-Release Beta 2 | Added Rush gameplay mode. General GUI updates.
+| All Stars 1.0.0 | First release of Gimme5: All Stars.
